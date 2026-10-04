@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1565c0"><link rel="manifest" href="manifest.json">
+<title>LABSAINS</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div><b>🧪 LABSAINS</b><small>Urus Makmal • Lebih Selamat</small></div><button id="installBtn" hidden>Pasang</button></header>
+<main>
+<section id="dashboard" class="page active">
+<h2>Selamat datang 👋</h2><div class="grid">
+<div class="card"><strong id="equipmentCount">0</strong><span>🔬 Peralatan</span></div>
+<div class="card"><strong id="chemicalCount">0</strong><span>⚗️ Bahan Kimia</span></div>
+<div class="card"><strong>7</strong><span>🧪 Eksperimen</span></div>
+<div class="card"><strong id="alertCount">0</strong><span>⚠️ Amaran</span></div>
+</div>
+<h3>Akses Pantas</h3><div class="actions">
+<button onclick="showPage('inventory')">🔬 Inventori</button><button onclick="showPage('chemicals')">⚗️ Bahan Kimia</button>
+<button onclick="showPage('experiments')">🧪 Eksperimen</button><button onclick="showPage('safety')">🚨 Keselamatan</button>
+</div>
+</section>
+
+<section id="inventory" class="page"><div class="title"><h2>🔬 Inventori</h2><button onclick="openEquipmentForm()">＋</button></div>
+<input id="eqSearch" placeholder="Cari peralatan..." oninput="renderEquipment()"><div id="equipmentList"></div></section>
+
+<section id="chemicals" class="page"><div class="title"><h2>⚗️ Bahan Kimia</h2><button onclick="openChemicalForm()">＋</button></div>
+<input id="chemSearch" placeholder="Cari bahan kimia..." oninput="renderChemicals()"><div id="chemicalList"></div></section>
+
+<section id="experiments" class="page"><h2>🧪 Eksperimen</h2>
+<div class="item"><b>Ujian Kanji Dalam Makanan</b><small>Tingkatan 4 • Biologi</small><p>Objektif, bahan, radas, prosedur, pemerhatian dan kesimpulan.</p></div>
+<div class="item"><b>Fotosintesis</b><small>Tingkatan 4 • Biologi</small><p>Rekod pemerhatian dan keputusan eksperimen.</p></div></section>
+
+<section id="safety" class="page"><h2>🚨 Keselamatan</h2>
+<div class="safety"><b>🔥 Kebakaran</b><p>Aktifkan prosedur kecemasan makmal dan ikut arahan keselamatan setempat.</p></div>
+<div class="safety"><b>🧪 Tumpahan bahan kimia</b><p>Jauhkan orang daripada kawasan tumpahan dan ikut SOP makmal.</p></div>
+<div class="safety"><b>👁️ Bahan terkena mata</b><p>Gunakan kemudahan pencuci mata dan dapatkan bantuan mengikut SOP makmal.</p></div></section>
+</main>
+
+<nav><button onclick="showPage('dashboard')">🏠<span>Home</span></button><button onclick="showPage('inventory')">🔬<span>Inventori</span></button><button onclick="showPage('chemicals')">⚗️<span>Kimia</span></button><button onclick="showPage('safety')">🚨<span>Selamat</span></button></nav>
+
+<div id="modal" class="modal"><div class="modalbox"><div class="title"><h3 id="modalTitle"></h3><button onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
+<script src="app.js"></script>
+</body></html>
