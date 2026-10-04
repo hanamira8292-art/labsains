@@ -1,44 +1,428 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ms">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1565c0"><link rel="manifest" href="manifest.json">
-<title>LABSAINS</title><link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <meta name="theme-color" content="#1769c2">
+
+  <meta name="description"
+        content="LABSAINS - Sistem pengurusan makmal yang lebih selamat dan teratur">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg">
+
+  <title>LABSAINS</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header><div><b>🧪 LABSAINS</b><small>Urus Makmal • Lebih Selamat</small></div><button id="installBtn" hidden>Pasang</button></header>
-<main>
-<section id="dashboard" class="page active">
-<h2>Selamat datang 👋</h2><div class="grid">
-<div class="card"><strong id="equipmentCount">0</strong><span>🔬 Peralatan</span></div>
-<div class="card"><strong id="chemicalCount">0</strong><span>⚗️ Bahan Kimia</span></div>
-<div class="card"><strong>7</strong><span>🧪 Eksperimen</span></div>
-<div class="card"><strong id="alertCount">0</strong><span>⚠️ Amaran</span></div>
-</div>
-<h3>Akses Pantas</h3><div class="actions">
-<button onclick="showPage('inventory')">🔬 Inventori</button><button onclick="showPage('chemicals')">⚗️ Bahan Kimia</button>
-<button onclick="showPage('experiments')">🧪 Eksperimen</button><button onclick="showPage('safety')">🚨 Keselamatan</button>
-</div>
-</section>
 
-<section id="inventory" class="page"><div class="title"><h2>🔬 Inventori</h2><button onclick="openEquipmentForm()">＋</button></div>
-<input id="eqSearch" placeholder="Cari peralatan..." oninput="renderEquipment()"><div id="equipmentList"></div></section>
+<!-- ================= HEADER ================= -->
 
-<section id="chemicals" class="page"><div class="title"><h2>⚗️ Bahan Kimia</h2><button onclick="openChemicalForm()">＋</button></div>
-<input id="chemSearch" placeholder="Cari bahan kimia..." oninput="renderChemicals()"><div id="chemicalList"></div></section>
+<header class="topbar">
 
-<section id="experiments" class="page"><h2>🧪 Eksperimen</h2>
-<div class="item"><b>Ujian Kanji Dalam Makanan</b><small>Tingkatan 4 • Biologi</small><p>Objektif, bahan, radas, prosedur, pemerhatian dan kesimpulan.</p></div>
-<div class="item"><b>Fotosintesis</b><small>Tingkatan 4 • Biologi</small><p>Rekod pemerhatian dan keputusan eksperimen.</p></div></section>
+  <div class="brand">
 
-<section id="safety" class="page"><h2>🚨 Keselamatan</h2>
-<div class="safety"><b>🔥 Kebakaran</b><p>Aktifkan prosedur kecemasan makmal dan ikut arahan keselamatan setempat.</p></div>
-<div class="safety"><b>🧪 Tumpahan bahan kimia</b><p>Jauhkan orang daripada kawasan tumpahan dan ikut SOP makmal.</p></div>
-<div class="safety"><b>👁️ Bahan terkena mata</b><p>Gunakan kemudahan pencuci mata dan dapatkan bantuan mengikut SOP makmal.</p></div></section>
+    <div class="brand-icon">🧪</div>
+
+    <div>
+      <h1>LABSAINS</h1>
+      <p>Urus Makmal • Lebih Selamat</p>
+    </div>
+
+  </div>
+
+  <button class="header-action" onclick="showSection('safety')">
+    Pasang
+  </button>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main id="app">
+
+
+  <!-- ================= HOME ================= -->
+
+  <section id="home" class="page active">
+
+    <div class="welcome">
+
+      <h2>Selamat datang 👋</h2>
+
+      <p>
+        Sistem pengurusan makmal anda.
+      </p>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats-grid">
+
+      <button class="stat-card" onclick="showSection('inventory')">
+
+        <strong id="equipmentCount">0</strong>
+
+        <span>🔬 Peralatan</span>
+
+      </button>
+
+
+      <button class="stat-card" onclick="showSection('chemicals')">
+
+        <strong id="chemicalCount">0</strong>
+
+        <span>⚗️ Bahan Kimia</span>
+
+      </button>
+
+
+      <button class="stat-card" onclick="showSection('experiments')">
+
+        <strong id="experimentCount">0</strong>
+
+        <span>🧪 Eksperimen</span>
+
+      </button>
+
+
+      <button class="stat-card warning-card" onclick="showSection('alerts')">
+
+        <strong id="alertCount">0</strong>
+
+        <span>⚠️ Amaran</span>
+
+      </button>
+
+    </div>
+
+
+    <!-- QUICK ACCESS -->
+
+    <h3 class="section-title">Akses Pantas</h3>
+
+    <div class="quick-grid">
+
+      <button onclick="showSection('inventory')">
+        🔬
+        <span>Inventori</span>
+      </button>
+
+      <button onclick="showSection('chemicals')">
+        ⚗️
+        <span>Bahan Kimia</span>
+      </button>
+
+      <button onclick="showSection('experiments')">
+        🧪
+        <span>Eksperimen</span>
+      </button>
+
+      <button onclick="showSection('safety')">
+        🚨
+        <span>Keselamatan</span>
+      </button>
+
+    </div>
+
+
+    <!-- RECENT -->
+
+    <h3 class="section-title">Ringkasan Makmal</h3>
+
+    <div id="homeSummary" class="summary-box"></div>
+
+  </section>
+
+
+
+  <!-- ================= INVENTORY ================= -->
+
+  <section id="inventory" class="page">
+
+    <div class="page-heading">
+
+      <div>
+        <h2>🔬 Inventori</h2>
+        <p>Pengurusan peralatan makmal</p>
+      </div>
+
+      <button class="primary-btn" onclick="openEquipmentForm()">
+        + Tambah
+      </button>
+
+    </div>
+
+
+    <div class="search-box">
+
+      <input
+        id="equipmentSearch"
+        type="search"
+        placeholder="🔍 Cari peralatan..."
+        oninput="renderEquipment()"
+      >
+
+    </div>
+
+
+    <div id="equipmentList" class="card-list"></div>
+
+  </section>
+
+
+
+  <!-- ================= CHEMICALS ================= -->
+
+  <section id="chemicals" class="page">
+
+    <div class="page-heading">
+
+      <div>
+        <h2>⚗️ Bahan Kimia</h2>
+        <p>Rekod dan keselamatan bahan</p>
+      </div>
+
+      <button class="primary-btn" onclick="openChemicalForm()">
+        + Tambah
+      </button>
+
+    </div>
+
+
+    <div class="search-box">
+
+      <input
+        id="chemicalSearch"
+        type="search"
+        placeholder="🔍 Cari bahan kimia..."
+        oninput="renderChemicals()"
+      >
+
+    </div>
+
+
+    <div id="chemicalList" class="card-list"></div>
+
+  </section>
+
+
+
+  <!-- ================= EXPERIMENTS ================= -->
+
+  <section id="experiments" class="page">
+
+    <div class="page-heading">
+
+      <div>
+        <h2>🧪 Eksperimen</h2>
+        <p>Koleksi eksperimen makmal</p>
+      </div>
+
+      <button class="primary-btn" onclick="openExperimentForm()">
+        + Tambah
+      </button>
+
+    </div>
+
+
+    <div class="search-box">
+
+      <input
+        id="experimentSearch"
+        type="search"
+        placeholder="🔍 Cari eksperimen..."
+        oninput="renderExperiments()"
+      >
+
+    </div>
+
+
+    <div id="experimentList" class="card-list"></div>
+
+  </section>
+
+
+
+  <!-- ================= SAFETY ================= -->
+
+  <section id="safety" class="page">
+
+    <div class="page-heading">
+
+      <div>
+        <h2>🚨 Keselamatan</h2>
+        <p>Prosedur keselamatan makmal</p>
+      </div>
+
+    </div>
+
+
+    <div class="safety-grid">
+
+      <article class="safety-card">
+
+        <div class="safety-icon">🥽</div>
+
+        <h3>PPE</h3>
+
+        <p>
+          Gunakan kot makmal, sarung tangan,
+          cermin mata keselamatan dan kasut
+          bertutup apabila menjalankan eksperimen.
+        </p>
+
+      </article>
+
+
+      <article class="safety-card danger">
+
+        <div class="safety-icon">🔥</div>
+
+        <h3>Kebakaran</h3>
+
+        <p>
+          Tutup sumber api jika selamat dilakukan.
+          Gunakan alat pemadam yang sesuai dan
+          keluar dari makmal mengikut laluan kecemasan.
+        </p>
+
+      </article>
+
+
+      <article class="safety-card warning">
+
+        <div class="safety-icon">☣️</div>
+
+        <h3>Tumpahan Kimia</h3>
+
+        <p>
+          Jangan sentuh bahan secara langsung.
+          Jauhkan orang daripada kawasan tumpahan
+          dan gunakan prosedur pengendalian tumpahan.
+        </p>
+
+      </article>
+
+
+      <article class="safety-card">
+
+        <div class="safety-icon">🚿</div>
+
+        <h3>Kecemasan</h3>
+
+        <p>
+          Ketahui lokasi pancuran keselamatan,
+          pencuci mata, kit pertolongan cemas
+          dan pintu keluar kecemasan.
+        </p>
+
+      </article>
+
+    </div>
+
+
+    <div class="emergency-box">
+
+      <h3>📞 Nombor Kecemasan</h3>
+
+      <p>
+        <strong>999</strong> — Kecemasan Malaysia
+      </p>
+
+      <p>
+        Hubungi pihak bertanggungjawab di makmal
+        sekiranya berlaku insiden.
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================= ALERTS ================= -->
+
+  <section id="alerts" class="page">
+
+    <div class="page-heading">
+
+      <div>
+        <h2>⚠️ Amaran</h2>
+        <p>Perkara yang memerlukan perhatian</p>
+      </div>
+
+    </div>
+
+    <div id="alertList" class="card-list"></div>
+
+  </section>
+
+
 </main>
 
-<nav><button onclick="showPage('dashboard')">🏠<span>Home</span></button><button onclick="showPage('inventory')">🔬<span>Inventori</span></button><button onclick="showPage('chemicals')">⚗️<span>Kimia</span></button><button onclick="showPage('safety')">🚨<span>Selamat</span></button></nav>
 
-<div id="modal" class="modal"><div class="modalbox"><div class="title"><h3 id="modalTitle"></h3><button onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
+
+<!-- ================= MODAL ================= -->
+
+<div id="modal" class="modal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h3 id="modalTitle">Tambah</h3>
+
+      <button onclick="closeModal()" class="close-btn">
+        ×
+      </button>
+
+    </div>
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav class="bottom-nav">
+
+  <button onclick="showSection('home')" data-section="home">
+    <span>🏠</span>
+    <small>Home</small>
+  </button>
+
+  <button onclick="showSection('inventory')" data-section="inventory">
+    <span>🔬</span>
+    <small>Inventori</small>
+  </button>
+
+  <button onclick="showSection('chemicals')" data-section="chemicals">
+    <span>⚗️</span>
+    <small>Kimia</small>
+  </button>
+
+  <button onclick="showSection('safety')" data-section="safety">
+    <span>🚨</span>
+    <small>Selamat</small>
+  </button>
+
+</nav>
+
+
 <script src="app.js"></script>
-</body></html>
+
+</body>
+</html>
