@@ -1,247 +1,912 @@
 <!DOCTYPE html>
 <html lang="ms">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="theme-color" content="#1769aa">
-  <meta name="description" content="LABSAINS - Sistem pengurusan makmal">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>LABSAINS - Urus Makmal</title>
+  <meta
+    name="theme-color"
+    content="#0866c6"
+  >
+
+  <meta
+    name="description"
+    content="LABSAINS Pro - Sistem Pengurusan Makmal Sains"
+  >
+
+  <title>LABSAINS Pro</title>
 
   <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-<header class="topbar">
-  <div>
-    <div class="brand">🧪 LABSAINS</div>
-    <div class="subtitle">Urus Makmal • Lebih Selamat</div>
+
+<!-- ================================
+     SPLASH SCREEN
+================================ -->
+
+<div id="splashScreen" class="splash">
+
+  <div class="splash-icon">
+    ⚗️
   </div>
 
-  <button class="install-btn" onclick="showInstallInfo()">
-    Pasang
-  </button>
+  <h1>LABSAINS</h1>
+
+  <p>
+    Urus Makmal. Rekod Eksperimen.
+    Lebih Selamat.
+  </p>
+
+  <div class="loading-line">
+    <span></span>
+  </div>
+
+</div>
+
+
+<!-- ================================
+     APP
+================================ -->
+
+<div id="app" class="app hidden">
+
+
+<!-- ================================
+     TOP HEADER
+================================ -->
+
+<header class="topbar">
+
+  <div class="brand-area">
+
+    <button
+      class="menu-btn"
+      onclick="toggleSideMenu()"
+    >
+      ☰
+    </button>
+
+    <div>
+
+      <div class="brand">
+        ⚗️ LABSAINS
+      </div>
+
+      <div class="brand-sub">
+        Sistem Pengurusan Makmal
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="header-actions">
+
+    <button
+      class="header-icon"
+      onclick="showNotification()"
+    >
+      🔔
+    </button>
+
+    <div class="profile">
+      👨‍🏫
+    </div>
+
+  </div>
+
 </header>
 
 
-<main id="app">
+<!-- ================================
+     SIDE MENU
+================================ -->
 
-  <!-- HOME -->
-  <section id="homePage" class="page active">
+<div
+  id="sideMenu"
+  class="side-menu"
+>
 
-    <h1>Selamat datang 👋</h1>
+  <div class="side-head">
 
-    <div class="stats">
+    <strong>LABSAINS</strong>
 
-      <div class="stat-card">
-        <strong id="equipmentCount">0</strong>
-        <span>🔬 Peralatan</span>
-      </div>
+    <button onclick="toggleSideMenu()">
+      ×
+    </button>
 
-      <div class="stat-card">
-        <strong id="chemicalCount">0</strong>
-        <span>🧪 Bahan Kimia</span>
-      </div>
+  </div>
 
-      <div class="stat-card">
-        <strong id="experimentCount">0</strong>
-        <span>🧫 Eksperimen</span>
-      </div>
+  <button onclick="openPage('homePage');toggleSideMenu()">
+    🏠 Dashboard
+  </button>
 
-      <div class="stat-card warning">
-        <strong id="warningCount">0</strong>
-        <span>⚠️ Amaran</span>
-      </div>
+  <button onclick="openPage('experimentPage');toggleSideMenu()">
+    🧫 Eksperimen
+  </button>
+
+  <button onclick="openPage('inventoryPage');toggleSideMenu()">
+    🔬 Peralatan
+  </button>
+
+  <button onclick="openPage('chemicalPage');toggleSideMenu()">
+    🧪 Bahan Kimia
+  </button>
+
+  <button onclick="openPage('safetyPage');toggleSideMenu()">
+    🚨 Keselamatan
+  </button>
+
+</div>
+
+
+<main>
+
+
+<!-- ================================
+     HOME
+================================ -->
+
+<section
+  id="homePage"
+  class="page active"
+>
+
+  <div class="welcome">
+
+    <div>
+
+      <p class="eyebrow">
+        DASHBOARD MAKMAL
+      </p>
+
+      <h1>
+        Selamat datang,
+        <span>Cikgu Ahmad</span> 👋
+      </h1>
+
+      <p>
+        Ringkasan aktiviti makmal hari ini.
+      </p>
 
     </div>
 
+  </div>
 
-    <h2>Akses Pantas</h2>
 
-    <div class="quick-grid">
+  <!-- STATISTICS -->
 
-      <button onclick="openPage('inventoryPage')">
+  <div class="stats-grid">
+
+    <div class="stat-card blue">
+
+      <div class="stat-icon">
         🔬
-        <span>Inventori</span>
-      </button>
+      </div>
 
-      <button onclick="openChemicalModal()">
+      <strong id="equipmentCount">
+        0
+      </strong>
+
+      <span>
+        Peralatan
+      </span>
+
+    </div>
+
+
+    <div class="stat-card purple">
+
+      <div class="stat-icon">
         🧪
-        <span>Tambah Kimia</span>
-      </button>
+      </div>
 
-      <button onclick="openEquipmentModal()">
+      <strong id="chemicalCount">
+        0
+      </strong>
+
+      <span>
+        Bahan Kimia
+      </span>
+
+    </div>
+
+
+    <div class="stat-card green">
+
+      <div class="stat-icon">
         🧫
-        <span>Tambah Radas</span>
-      </button>
+      </div>
 
-      <button onclick="openPage('safetyPage')">
-        🚨
-        <span>Keselamatan</span>
-      </button>
+      <strong id="experimentCount">
+        0
+      </strong>
+
+      <span>
+        Eksperimen
+      </span>
 
     </div>
 
 
-    <div class="info-box">
-      <h3>💡 Tip Makmal</h3>
+    <div class="stat-card red">
+
+      <div class="stat-icon">
+        ⚠️
+      </div>
+
+      <strong id="warningCount">
+        0
+      </strong>
+
+      <span>
+        Amaran
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- QUICK ACCESS -->
+
+  <div class="section-head">
+
+    <div>
+      <h2>Akses Pantas</h2>
+      <p>Fungsi utama LABSAINS</p>
+    </div>
+
+  </div>
+
+
+  <div class="quick-grid">
+
+    <button
+      class="quick-card blue-card"
+      onclick="openChemicalModal()"
+    >
+
+      <span class="quick-icon">
+        🧪
+      </span>
+
+      <strong>
+        Bahan Kimia
+      </strong>
+
+      <small>
+        Urus bahan
+      </small>
+
+    </button>
+
+
+    <button
+      class="quick-card green-card"
+      onclick="openEquipmentModal()"
+    >
+
+      <span class="quick-icon">
+        🔬
+      </span>
+
+      <strong>
+        Peralatan
+      </strong>
+
+      <small>
+        Urus radas
+      </small>
+
+    </button>
+
+
+    <button
+      class="quick-card purple-card"
+      onclick="openPage('experimentPage')"
+    >
+
+      <span class="quick-icon">
+        🧫
+      </span>
+
+      <strong>
+        Eksperimen
+      </strong>
+
+      <small>
+        Rekod eksperimen
+      </small>
+
+    </button>
+
+
+    <button
+      class="quick-card red-card"
+      onclick="openPage('safetyPage')"
+    >
+
+      <span class="quick-icon">
+        🛡️
+      </span>
+
+      <strong>
+        Keselamatan
+      </strong>
+
+      <small>
+        SOP kecemasan
+      </small>
+
+    </button>
+
+  </div>
+
+
+  <!-- RECENT -->
+
+  <div class="section-head">
+
+    <div>
+
+      <h2>
+        Aktiviti Terkini
+      </h2>
+
       <p>
-        Pastikan semua bahan kimia dilabel dengan betul,
+        Rekod terakhir dalam makmal
+      </p>
+
+    </div>
+
+  </div>
+
+  <div id="recentList"></div>
+
+
+  <!-- TIP -->
+
+  <div class="tip-card">
+
+    <div class="tip-icon">
+      💡
+    </div>
+
+    <div>
+
+      <strong>
+        Tip Makmal Hari Ini
+      </strong>
+
+      <p>
+        Pastikan bahan kimia dilabel dengan betul,
         disimpan mengikut kesesuaian dan dikendalikan
-        mengikut prosedur keselamatan makmal.
+        berdasarkan SDS serta SOP makmal.
       </p>
-    </div>
-
-  </section>
-
-
-  <!-- INVENTORY -->
-  <section id="inventoryPage" class="page">
-
-    <div class="page-title">
-      <div>
-        <h1>📦 Inventori</h1>
-        <p>Senarai bahan dan peralatan makmal</p>
-      </div>
-
-      <button class="primary-btn" onclick="openChemicalModal()">
-        + Kimia
-      </button>
-    </div>
-
-
-    <div class="search-box">
-      🔎
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Cari inventori..."
-        oninput="renderInventory()"
-      >
-    </div>
-
-
-    <div class="filter-buttons">
-
-      <button
-        class="filter active"
-        onclick="setFilter('all', this)">
-        Semua
-      </button>
-
-      <button
-        class="filter"
-        onclick="setFilter('chemical', this)">
-        🧪 Kimia
-      </button>
-
-      <button
-        class="filter"
-        onclick="setFilter('equipment', this)">
-        🔬 Radas
-      </button>
 
     </div>
 
+  </div>
 
-    <div id="inventoryList"></div>
-
-  </section>
-
-
-  <!-- CHEMICAL PAGE -->
-  <section id="chemicalPage" class="page">
-
-    <div class="page-title">
-      <div>
-        <h1>🧪 Bahan Kimia</h1>
-        <p>Bahan kimia biasa digunakan di makmal</p>
-      </div>
-
-      <button
-        class="primary-btn"
-        onclick="openChemicalModal()">
-        + Tambah
-      </button>
-    </div>
+</section>
 
 
-    <div class="catalog-grid" id="chemicalCatalog"></div>
+<!-- ================================
+     EXPERIMENT
+================================ -->
 
-  </section>
+<section
+  id="experimentPage"
+  class="page"
+>
 
+  <div class="page-heading">
 
-  <!-- SAFETY -->
-  <section id="safetyPage" class="page">
+    <div>
 
-    <h1>🚨 Keselamatan</h1>
+      <p class="eyebrow">
+        REKOD MAKMAL
+      </p>
 
-    <div class="safety-card">
-      <h3>🥽 PPE</h3>
+      <h1>
+        🧫 Eksperimen
+      </h1>
+
       <p>
-        Gunakan kot makmal, cermin mata keselamatan dan
-        sarung tangan yang sesuai apabila diperlukan.
+        Senarai eksperimen dan rekod aktiviti.
       </p>
+
     </div>
 
-    <div class="safety-card">
-      <h3>🧪 Bahan Kimia</h3>
+    <button
+      class="primary-btn"
+      onclick="openExperimentModal()"
+    >
+      + Rekod
+    </button>
+
+  </div>
+
+
+  <div class="search-box">
+
+    🔎
+
+    <input
+      id="experimentSearch"
+      type="search"
+      placeholder="Cari eksperimen..."
+      oninput="renderExperiments()"
+    >
+
+  </div>
+
+
+  <div class="filter-row">
+
+    <button
+      class="filter active"
+      onclick="setExperimentFilter('all',this)"
+    >
+      Semua
+    </button>
+
+    <button
+      class="filter"
+      onclick="setExperimentFilter('Selesai',this)"
+    >
+      Selesai
+    </button>
+
+    <button
+      class="filter"
+      onclick="setExperimentFilter('Dalam proses',this)"
+    >
+      Dalam proses
+    </button>
+
+  </div>
+
+
+  <div id="experimentList"></div>
+
+</section>
+
+
+<!-- ================================
+     INVENTORY
+================================ -->
+
+<section
+  id="inventoryPage"
+  class="page"
+>
+
+  <div class="page-heading">
+
+    <div>
+
+      <p class="eyebrow">
+        INVENTORI
+      </p>
+
+      <h1>
+        🔬 Peralatan
+      </h1>
+
       <p>
-        Jangan campurkan bahan kimia secara rawak.
-        Semak label, SDS dan arahan makmal sebelum penggunaan.
+        Pengurusan peralatan makmal.
       </p>
+
     </div>
 
-    <div class="safety-card danger">
-      <h3>⚠️ Amaran</h3>
+    <button
+      class="primary-btn"
+      onclick="openEquipmentModal()"
+    >
+      + Tambah
+    </button>
+
+  </div>
+
+
+  <div class="search-box">
+
+    🔎
+
+    <input
+      id="inventorySearch"
+      type="search"
+      placeholder="Cari peralatan..."
+      oninput="renderInventory()"
+    >
+
+  </div>
+
+
+  <div class="filter-row">
+
+    <button
+      class="filter active"
+      onclick="setInventoryFilter('all',this)"
+    >
+      Semua
+    </button>
+
+    <button
+      class="filter"
+      onclick="setInventoryFilter('Baik',this)"
+    >
+      🟢 Baik
+    </button>
+
+    <button
+      class="filter"
+      onclick="setInventoryFilter('Rosak',this)"
+    >
+      🔴 Rosak
+    </button>
+
+    <button
+      class="filter"
+      onclick="setInventoryFilter('Stok rendah',this)"
+    >
+      🟡 Stok rendah
+    </button>
+
+  </div>
+
+
+  <div id="inventoryList"></div>
+
+</section>
+
+
+<!-- ================================
+     CHEMICAL
+================================ -->
+
+<section
+  id="chemicalPage"
+  class="page"
+>
+
+  <div class="page-heading">
+
+    <div>
+
+      <p class="eyebrow">
+        INVENTORI KIMIA
+      </p>
+
+      <h1>
+        🧪 Bahan Kimia
+      </h1>
+
       <p>
-        Sesetengah bahan kimia boleh menghakis, merengsa,
-        mudah terbakar atau berbahaya jika tersedut atau tertelan.
+        Bahan kimia biasa digunakan di makmal.
       </p>
+
     </div>
 
-    <div class="safety-card">
-      <h3>🚿 Kecemasan</h3>
+    <button
+      class="primary-btn"
+      onclick="openChemicalModal()"
+    >
+      + Tambah
+    </button>
+
+  </div>
+
+
+  <div class="search-box">
+
+    🔎
+
+    <input
+      id="chemicalSearch"
+      type="search"
+      placeholder="Cari bahan kimia..."
+      oninput="renderChemicals()"
+    >
+
+  </div>
+
+
+  <div class="filter-row">
+
+    <button
+      class="filter active"
+      onclick="setChemicalFilter('all',this)"
+    >
+      Semua
+    </button>
+
+    <button
+      class="filter"
+      onclick="setChemicalFilter('Selamat',this)"
+    >
+      🟢 Selamat
+    </button>
+
+    <button
+      class="filter"
+      onclick="setChemicalFilter('Perhatian',this)"
+    >
+      🔴 Perhatian
+    </button>
+
+  </div>
+
+
+  <div id="chemicalList"></div>
+
+</section>
+
+
+<!-- ================================
+     SAFETY
+================================ -->
+
+<section
+  id="safetyPage"
+  class="page"
+>
+
+  <div class="page-heading">
+
+    <div>
+
+      <p class="eyebrow">
+        KESELAMATAN
+      </p>
+
+      <h1>
+        🚨 Keselamatan Makmal
+      </h1>
+
       <p>
-        Ketahui lokasi pancuran kecemasan, eye-wash,
-        alat pemadam api dan pintu keluar sebelum bekerja.
+        Panduan tindakan kecemasan.
       </p>
+
     </div>
 
-  </section>
+  </div>
+
+
+  <div class="emergency-banner">
+
+    <div class="emergency-icon">
+      🚨
+    </div>
+
+    <div>
+
+      <strong>
+        KECEMASAN
+      </strong>
+
+      <p>
+        Ikuti prosedur kecemasan makmal
+        dan hubungi pihak bertanggungjawab.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="safety-grid">
+
+    <div class="safety-tile">
+      <span>🔥</span>
+      <strong>Kebakaran</strong>
+      <small>Prosedur & tindakan</small>
+    </div>
+
+    <div class="safety-tile">
+      <span>🧪</span>
+      <strong>Tumpahan Kimia</strong>
+      <small>Langkah keselamatan</small>
+    </div>
+
+    <div class="safety-tile">
+      <span>👁️</span>
+      <strong>Mata Terkena</strong>
+      <small>Rawatan segera</small>
+    </div>
+
+    <div class="safety-tile">
+      <span>🩹</span>
+      <strong>Kecederaan</strong>
+      <small>Pertolongan cemas</small>
+    </div>
+
+    <div class="safety-tile">
+      <span>📞</span>
+      <strong>Kecemasan</strong>
+      <small>999 / nombor sekolah</small>
+    </div>
+
+    <div class="safety-tile">
+      <span>🚿</span>
+      <strong>Eye Wash</strong>
+      <small>Lokasi kemudahan</small>
+    </div>
+
+  </div>
+
+
+  <div class="safety-info">
+
+    <h3>🥽 PPE Wajib</h3>
+
+    <p>
+      Gunakan kot makmal, cermin mata keselamatan
+      dan sarung tangan yang sesuai mengikut aktiviti.
+    </p>
+
+  </div>
+
+
+  <div class="safety-info">
+
+    <h3>🧪 Bahan Kimia</h3>
+
+    <p>
+      Jangan campurkan bahan kimia secara rawak.
+      Semak label, SDS dan arahan makmal sebelum penggunaan.
+    </p>
+
+  </div>
+
+</section>
+
 
 </main>
 
 
-<!-- FLOATING BUTTON -->
+<!-- ================================
+     FLOATING BUTTON
+================================ -->
 
-<button class="floating-btn" onclick="openAddMenu()">
+<button
+  class="floating-btn"
+  onclick="openAddMenu()"
+>
   +
 </button>
 
 
-<!-- ADD MENU -->
+<!-- ================================
+     BOTTOM NAV
+================================ -->
 
-<div id="addMenu" class="overlay hidden">
+<nav class="bottom-nav">
+
+  <button
+    class="nav-item active"
+    onclick="openPage('homePage',this)"
+  >
+    <span>🏠</span>
+    <small>Home</small>
+  </button>
+
+
+  <button
+    class="nav-item"
+    onclick="openPage('experimentPage',this)"
+  >
+    <span>🧫</span>
+    <small>Eksperimen</small>
+  </button>
+
+
+  <button
+    class="nav-item"
+    onclick="openPage('inventoryPage',this)"
+  >
+    <span>🔬</span>
+    <small>Inventori</small>
+  </button>
+
+
+  <button
+    class="nav-item"
+    onclick="openPage('chemicalPage',this)"
+  >
+    <span>🧪</span>
+    <small>Kimia</small>
+  </button>
+
+
+  <button
+    class="nav-item"
+    onclick="openPage('safetyPage',this)"
+  >
+    <span>🛡️</span>
+    <small>Selamat</small>
+  </button>
+
+</nav>
+
+
+</div>
+
+
+<!-- ================================
+     ADD MENU
+================================ -->
+
+<div
+  id="addMenu"
+  class="overlay hidden"
+  onclick="closeIfOutside(event,'addMenu')"
+>
 
   <div class="modal small">
 
-    <button class="close-btn" onclick="closeAddMenu()">×</button>
-
-    <h2>Tambah Inventori</h2>
-
     <button
-      class="modal-option"
-      onclick="openChemicalModal()">
-      🧪 Tambah Bahan Kimia
+      class="close-btn"
+      onclick="closeAddMenu()"
+    >
+      ×
     </button>
 
+    <h2>
+      Tambah Rekod
+    </h2>
+
+    <p class="modal-description">
+      Pilih perkara yang hendak ditambah.
+    </p>
+
+
     <button
       class="modal-option"
-      onclick="openEquipmentModal()">
-      🔬 Tambah Alat / Radas
+      onclick="closeAddMenu();openChemicalModal()"
+    >
+      🧪
+      <span>
+        <strong>Bahan Kimia</strong>
+        <small>Tambah bahan ke inventori</small>
+      </span>
+    </button>
+
+
+    <button
+      class="modal-option"
+      onclick="closeAddMenu();openEquipmentModal()"
+    >
+      🔬
+      <span>
+        <strong>Alat / Radas</strong>
+        <small>Tambah peralatan makmal</small>
+      </span>
+    </button>
+
+
+    <button
+      class="modal-option"
+      onclick="closeAddMenu();openExperimentModal()"
+    >
+      🧫
+      <span>
+        <strong>Eksperimen</strong>
+        <small>Rekod eksperimen baharu</small>
+      </span>
     </button>
 
   </div>
@@ -249,18 +914,31 @@
 </div>
 
 
-<!-- CHEMICAL MODAL -->
+<!-- ================================
+     CHEMICAL MODAL
+================================ -->
 
-<div id="chemicalModal" class="overlay hidden">
+<div
+  id="chemicalModal"
+  class="overlay hidden"
+  onclick="closeIfOutside(event,'chemicalModal')"
+>
 
   <div class="modal">
 
-    <button class="close-btn" onclick="closeChemicalModal()">×</button>
+    <button
+      class="close-btn"
+      onclick="closeChemicalModal()"
+    >
+      ×
+    </button>
 
-    <h2>🧪 Tambah Bahan Kimia</h2>
+    <h2>
+      🧪 Tambah Bahan Kimia
+    </h2>
 
     <p class="modal-description">
-      Pilih bahan yang hendak dimasukkan ke dalam inventori.
+      Pilih bahan daripada katalog.
     </p>
 
     <div id="chemicalOptions"></div>
@@ -270,18 +948,31 @@
 </div>
 
 
-<!-- EQUIPMENT MODAL -->
+<!-- ================================
+     EQUIPMENT MODAL
+================================ -->
 
-<div id="equipmentModal" class="overlay hidden">
+<div
+  id="equipmentModal"
+  class="overlay hidden"
+  onclick="closeIfOutside(event,'equipmentModal')"
+>
 
   <div class="modal">
 
-    <button class="close-btn" onclick="closeEquipmentModal()">×</button>
+    <button
+      class="close-btn"
+      onclick="closeEquipmentModal()"
+    >
+      ×
+    </button>
 
-    <h2>🔬 Tambah Alat / Radas</h2>
+    <h2>
+      🔬 Tambah Alat / Radas
+    </h2>
 
     <p class="modal-description">
-      Pilih peralatan yang hendak dimasukkan ke dalam inventori.
+      Pilih peralatan daripada katalog.
     </p>
 
     <div id="equipmentOptions"></div>
@@ -291,33 +982,103 @@
 </div>
 
 
-<!-- BOTTOM NAV -->
+<!-- ================================
+     EXPERIMENT MODAL
+================================ -->
 
-<nav class="bottom-nav">
+<div
+  id="experimentModal"
+  class="overlay hidden"
+  onclick="closeIfOutside(event,'experimentModal')"
+>
 
-  <button onclick="openPage('homePage')">
-    <span>🏠</span>
-    <small>Home</small>
-  </button>
+  <div class="modal">
 
-  <button onclick="openPage('inventoryPage')">
-    <span>🔬</span>
-    <small>Inventori</small>
-  </button>
+    <button
+      class="close-btn"
+      onclick="closeExperimentModal()"
+    >
+      ×
+    </button>
 
-  <button onclick="openPage('chemicalPage')">
-    <span>🧪</span>
-    <small>Kimia</small>
-  </button>
+    <h2>
+      🧫 Rekod Eksperimen
+    </h2>
 
-  <button onclick="openPage('safetyPage')">
-    <span>🚨</span>
-    <small>Selamat</small>
-  </button>
+    <div class="form-grid">
 
-</nav>
+      <label>
+        Tarikh
+        <input
+          id="expDate"
+          type="date"
+        >
+      </label>
 
-<script src="app.js?v=3"></script>
+      <label>
+        Kelas
+        <input
+          id="expClass"
+          placeholder="Contoh: Tingkatan 4 Sains"
+        >
+      </label>
+
+      <label>
+        Nama Eksperimen
+        <input
+          id="expName"
+          placeholder="Contoh: Ujian Kanji Dalam Makanan"
+        >
+      </label>
+
+      <label>
+        Nama Pelajar / Kumpulan
+        <input
+          id="expGroup"
+          placeholder="Contoh: Kumpulan 1"
+        >
+      </label>
+
+      <label>
+        Pemerhatian
+        <textarea
+          id="expObservation"
+          placeholder="Catatan pemerhatian..."
+        ></textarea>
+      </label>
+
+      <label>
+        Keputusan
+        <textarea
+          id="expResult"
+          placeholder="Catatan keputusan..."
+        ></textarea>
+      </label>
+
+      <label>
+        Status
+        <select id="expStatus">
+          <option>Selesai</option>
+          <option>Dalam proses</option>
+        </select>
+      </label>
+
+    </div>
+
+
+    <button
+      class="primary-btn full"
+      onclick="saveExperiment()"
+    >
+      💾 Simpan Rekod
+    </button>
+
+  </div>
+
+</div>
+
+
+<script src="app.js?v=4"></script>
 
 </body>
 </html>
