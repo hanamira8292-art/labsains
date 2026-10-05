@@ -1,11 +1,12 @@
 /* =========================================
    LABSAINS APP
+   Versi stabil untuk PWA
 ========================================= */
 
 
-/* -----------------------------
+/* =========================================
    DATA BAHAN KIMIA
------------------------------ */
+========================================= */
 
 const chemicalCatalog = [
 
@@ -120,9 +121,9 @@ const chemicalCatalog = [
 ];
 
 
-/* -----------------------------
+/* =========================================
    DATA ALAT / RADAS
------------------------------ */
+========================================= */
 
 const equipmentCatalog = [
 
@@ -241,39 +242,75 @@ const equipmentCatalog = [
 ];
 
 
-/* -----------------------------
-   DATA INVENTORI
------------------------------ */
+/* =========================================
+   INVENTORI
+========================================= */
 
-let inventory =
-  JSON.parse(
-    localStorage.getItem("labsains_inventory")
-  ) || [
+let inventory = [];
 
-  {
-    id: "default_beaker",
-    type: "equipment",
-    name: "Bikar",
-    formula: "",
-    category: "Bekas",
-    icon: "🥛",
-    warning: ""
-  },
+try {
 
-  {
-    id: "default_testtube",
-    type: "equipment",
-    name: "Tabung Uji",
-    formula: "",
-    category: "Bekas",
-    icon: "🧪",
-    warning: ""
+  const saved =
+    localStorage.getItem("labsains_inventory");
+
+  if (saved) {
+
+    inventory =
+      JSON.parse(saved);
+
   }
 
-];
+} catch (error) {
 
+  console.error(
+    "Ralat membaca inventori:",
+    error
+  );
+
+  inventory = [];
+
+}
+
+
+/* Jika inventori kosong, masukkan contoh awal */
+
+if (!Array.isArray(inventory)) {
+
+  inventory = [];
+
+}
+
+
+/* =========================================
+   FILTER
+========================================= */
 
 let currentFilter = "all";
+
+
+/* =========================================
+   STORAGE
+========================================= */
+
+function saveInventory() {
+
+  try {
+
+    localStorage.setItem(
+      "labsains_inventory",
+      JSON.stringify(inventory)
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Gagal menyimpan inventori:",
+      error
+    );
+
+  }
+
+}
 
 
 /* =========================================
@@ -290,8 +327,10 @@ function openPage(pageId) {
 
     });
 
+
   const page =
     document.getElementById(pageId);
+
 
   if (page) {
 
@@ -299,42 +338,78 @@ function openPage(pageId) {
 
   }
 
+
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 
+
   renderInventory();
+
   renderChemicalCatalog();
 
+  updateDashboard();
+
 }
 
 
 /* =========================================
-   STORAGE
+   ADD MENU
 ========================================= */
 
-function saveInventory() {
+function openAddMenu() {
 
-  localStorage.setItem(
-    "labsains_inventory",
-    JSON.stringify(inventory)
-  );
+  const menu =
+    document.getElementById("addMenu");
+
+  if (!menu) return;
+
+  menu.classList.remove("hidden");
+
+}
+
+
+function closeAddMenu() {
+
+  const menu =
+    document.getElementById("addMenu");
+
+  if (!menu) return;
+
+  menu.classList.add("hidden");
 
 }
 
 
 /* =========================================
-   ADD CHEMICAL
+   CHEMICAL MODAL
 ========================================= */
 
 function openChemicalModal() {
 
   closeAddMenu();
 
-  document
-    .getElementById("chemicalModal")
-    .classList.remove("hidden");
+
+  const modal =
+    document.getElementById(
+      "chemicalModal"
+    );
+
+
+  if (!modal) {
+
+    console.error(
+      "chemicalModal tidak dijumpai."
+    );
+
+    return;
+
+  }
+
+
+  modal.classList.remove("hidden");
+
 
   renderChemicalOptions();
 
@@ -343,21 +418,49 @@ function openChemicalModal() {
 
 function closeChemicalModal() {
 
-  document
-    .getElementById("chemicalModal")
-    .classList.add("hidden");
+  const modal =
+    document.getElementById(
+      "chemicalModal"
+    );
+
+
+  if (modal) {
+
+    modal.classList.add("hidden");
+
+  }
 
 }
 
 
+/* =========================================
+   PAPAR SENARAI KIMIA
+========================================= */
+
 function renderChemicalOptions() {
 
   const container =
-    document.getElementById("chemicalOptions");
+    document.getElementById(
+      "chemicalOptions"
+    );
+
+
+  if (!container) {
+
+    console.error(
+      "chemicalOptions tidak dijumpai."
+    );
+
+    return;
+
+  }
+
 
   container.innerHTML = "";
 
+
   chemicalCatalog.forEach(item => {
+
 
     const exists =
       inventory.some(
@@ -366,11 +469,14 @@ function renderChemicalOptions() {
           x.catalogId === item.id
       );
 
+
     const div =
       document.createElement("div");
 
+
     div.className =
       "catalog-item";
+
 
     div.innerHTML = `
 
@@ -385,9 +491,11 @@ function renderChemicalOptions() {
 
       ${
         item.warning
-          ? `<span class="warning-tag">
+          ? `
+            <span class="warning-tag">
               ⚠️ ${item.warning}
-             </span>`
+            </span>
+          `
           : ""
       }
 
@@ -395,18 +503,24 @@ function renderChemicalOptions() {
 
       <button
         class="add-btn"
-        ${exists ? "disabled" : ""}
+        type="button"
+        ${
+          exists
+            ? "disabled"
+            : ""
+        }
         onclick="addChemical('${item.id}')">
 
         ${
           exists
             ? "✓ Sudah dalam inventori"
             : "+ Tambah"
-
         }
 
       </button>
+
     `;
+
 
     container.appendChild(div);
 
@@ -415,6 +529,10 @@ function renderChemicalOptions() {
 }
 
 
+/* =========================================
+   TAMBAH KIMIA
+========================================= */
+
 function addChemical(id) {
 
   const item =
@@ -422,7 +540,16 @@ function addChemical(id) {
       x => x.id === id
     );
 
-  if (!item) return;
+
+  if (!item) {
+
+    alert(
+      "Bahan kimia tidak dijumpai."
+    );
+
+    return;
+
+  }
 
 
   const exists =
@@ -431,6 +558,7 @@ function addChemical(id) {
         x.type === "chemical" &&
         x.catalogId === id
     );
+
 
   if (exists) {
 
@@ -481,20 +609,44 @@ function addChemical(id) {
 
   renderChemicalOptions();
 
+  renderChemicalCatalog();
+
+
+  alert(
+    `${item.name} telah ditambah ke inventori.`
+  );
+
 }
 
 
 /* =========================================
-   ADD EQUIPMENT
+   EQUIPMENT MODAL
 ========================================= */
 
 function openEquipmentModal() {
 
   closeAddMenu();
 
-  document
-    .getElementById("equipmentModal")
-    .classList.remove("hidden");
+
+  const modal =
+    document.getElementById(
+      "equipmentModal"
+    );
+
+
+  if (!modal) {
+
+    console.error(
+      "equipmentModal tidak dijumpai."
+    );
+
+    return;
+
+  }
+
+
+  modal.classList.remove("hidden");
+
 
   renderEquipmentOptions();
 
@@ -503,21 +655,49 @@ function openEquipmentModal() {
 
 function closeEquipmentModal() {
 
-  document
-    .getElementById("equipmentModal")
-    .classList.add("hidden");
+  const modal =
+    document.getElementById(
+      "equipmentModal"
+    );
+
+
+  if (modal) {
+
+    modal.classList.add("hidden");
+
+  }
 
 }
 
 
+/* =========================================
+   PAPAR SENARAI RADAS
+========================================= */
+
 function renderEquipmentOptions() {
 
   const container =
-    document.getElementById("equipmentOptions");
+    document.getElementById(
+      "equipmentOptions"
+    );
+
+
+  if (!container) {
+
+    console.error(
+      "equipmentOptions tidak dijumpai."
+    );
+
+    return;
+
+  }
+
 
   container.innerHTML = "";
 
+
   equipmentCatalog.forEach(item => {
+
 
     const exists =
       inventory.some(
@@ -530,8 +710,10 @@ function renderEquipmentOptions() {
     const div =
       document.createElement("div");
 
+
     div.className =
       "catalog-item";
+
 
     div.innerHTML = `
 
@@ -545,7 +727,12 @@ function renderEquipmentOptions() {
 
       <button
         class="add-btn"
-        ${exists ? "disabled" : ""}
+        type="button"
+        ${
+          exists
+            ? "disabled"
+            : ""
+        }
         onclick="addEquipment('${item.id}')">
 
         ${
@@ -558,12 +745,17 @@ function renderEquipmentOptions() {
 
     `;
 
+
     container.appendChild(div);
 
   });
 
 }
 
+
+/* =========================================
+   TAMBAH RADAS
+========================================= */
 
 function addEquipment(id) {
 
@@ -572,7 +764,16 @@ function addEquipment(id) {
       x => x.id === id
     );
 
-  if (!item) return;
+
+  if (!item) {
+
+    alert(
+      "Peralatan tidak dijumpai."
+    );
+
+    return;
+
+  }
 
 
   const exists =
@@ -581,6 +782,7 @@ function addEquipment(id) {
         x.type === "equipment" &&
         x.catalogId === id
     );
+
 
   if (exists) {
 
@@ -631,6 +833,11 @@ function addEquipment(id) {
 
   renderEquipmentOptions();
 
+
+  alert(
+    `${item.name} telah ditambah ke inventori.`
+  );
+
 }
 
 
@@ -645,6 +852,7 @@ function renderInventory() {
       "inventoryList"
     );
 
+
   if (!container) return;
 
 
@@ -653,24 +861,37 @@ function renderInventory() {
       document.getElementById(
         "searchInput"
       )?.value || ""
-    ).toLowerCase();
+    )
+    .toLowerCase()
+    .trim();
 
 
-  let filtered =
+  const filtered =
     inventory.filter(item => {
 
+
+      const name =
+        String(
+          item.name || ""
+        ).toLowerCase();
+
+
+      const category =
+        String(
+          item.category || ""
+        ).toLowerCase();
+
+
+      const formula =
+        String(
+          item.formula || ""
+        ).toLowerCase();
+
+
       const matchesSearch =
-        item.name
-          .toLowerCase()
-          .includes(search) ||
-
-        item.category
-          .toLowerCase()
-          .includes(search) ||
-
-        (item.formula || "")
-          .toLowerCase()
-          .includes(search);
+        name.includes(search) ||
+        category.includes(search) ||
+        formula.includes(search);
 
 
       const matchesFilter =
@@ -717,6 +938,7 @@ function renderInventory() {
     const div =
       document.createElement("div");
 
+
     div.className =
       "inventory-item";
 
@@ -724,32 +946,36 @@ function renderInventory() {
     div.innerHTML = `
 
       <div class="item-icon">
-        ${item.icon}
+        ${item.icon || "📦"}
       </div>
 
       <div class="item-info">
 
         <strong>
-          ${item.name}
+          ${item.name || "Item"}
         </strong>
 
         <small>
-          ${item.category}
+
+          ${item.category || ""}
 
           ${
             item.formula
               ? " • " + item.formula
               : ""
           }
+
         </small>
 
         ${
           item.warning
-            ? `<div>
+            ? `
+              <div>
                 <span class="warning-tag">
                   ⚠️ ${item.warning}
                 </span>
-              </div>`
+              </div>
+            `
             : ""
         }
 
@@ -757,6 +983,7 @@ function renderInventory() {
 
       <button
         class="delete-btn"
+        type="button"
         onclick="deleteItem('${item.id}')">
 
         🗑️
@@ -784,6 +1011,7 @@ function deleteItem(id) {
       x => x.id === id
     );
 
+
   if (!item) return;
 
 
@@ -808,6 +1036,12 @@ function deleteItem(id) {
 
   renderInventory();
 
+  renderChemicalOptions();
+
+  renderEquipmentOptions();
+
+  renderChemicalCatalog();
+
 }
 
 
@@ -826,12 +1060,22 @@ function setFilter(
 
   document
     .querySelectorAll(".filter")
-    .forEach(btn =>
-      btn.classList.remove("active")
+    .forEach(btn => {
+
+      btn.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  if (button) {
+
+    button.classList.add(
+      "active"
     );
 
-
-  button.classList.add("active");
+  }
 
 
   renderInventory();
@@ -850,6 +1094,7 @@ function renderChemicalCatalog() {
       "chemicalCatalog"
     );
 
+
   if (!container) return;
 
 
@@ -857,6 +1102,7 @@ function renderChemicalCatalog() {
 
 
   chemicalCatalog.forEach(item => {
+
 
     const exists =
       inventory.some(
@@ -868,6 +1114,7 @@ function renderChemicalCatalog() {
 
     const div =
       document.createElement("div");
+
 
     div.className =
       "catalog-item";
@@ -892,8 +1139,10 @@ function renderChemicalCatalog() {
 
         ${
           item.warning
-            ? `<br>
-               ⚠️ ${item.warning}`
+            ? `
+              <br>
+              ⚠️ ${item.warning}
+            `
             : ""
         }
 
@@ -901,7 +1150,12 @@ function renderChemicalCatalog() {
 
       <button
         class="add-btn"
-        ${exists ? "disabled" : ""}
+        type="button"
+        ${
+          exists
+            ? "disabled"
+            : ""
+        }
         onclick="addChemical('${item.id}')">
 
         ${
@@ -948,51 +1202,60 @@ function updateDashboard() {
     ).length;
 
 
-  document.getElementById(
-    "equipmentCount"
-  ).textContent =
-    equipment;
+  const equipmentCount =
+    document.getElementById(
+      "equipmentCount"
+    );
 
 
-  document.getElementById(
-    "chemicalCount"
-  ).textContent =
-    chemicals;
+  const chemicalCount =
+    document.getElementById(
+      "chemicalCount"
+    );
 
 
-  document.getElementById(
-    "warningCount"
-  ).textContent =
-    warnings;
+  const warningCount =
+    document.getElementById(
+      "warningCount"
+    );
 
 
-  /* Contoh data eksperimen */
-  document.getElementById(
-    "experimentCount"
-  ).textContent =
-    "7";
-
-}
+  const experimentCount =
+    document.getElementById(
+      "experimentCount"
+    );
 
 
-/* =========================================
-   FLOATING ADD MENU
-========================================= */
+  if (equipmentCount) {
 
-function openAddMenu() {
+    equipmentCount.textContent =
+      equipment;
 
-  document
-    .getElementById("addMenu")
-    .classList.remove("hidden");
-
-}
+  }
 
 
-function closeAddMenu() {
+  if (chemicalCount) {
 
-  document
-    .getElementById("addMenu")
-    .classList.add("hidden");
+    chemicalCount.textContent =
+      chemicals;
+
+  }
+
+
+  if (warningCount) {
+
+    warningCount.textContent =
+      warnings;
+
+  }
+
+
+  if (experimentCount) {
+
+    experimentCount.textContent =
+      "7";
+
+  }
 
 }
 
@@ -1016,7 +1279,12 @@ function showInstallInfo() {
 
 document.addEventListener(
   "DOMContentLoaded",
-  () => {
+  function () {
+
+    console.log(
+      "LABSAINS berjaya dimulakan."
+    );
+
 
     updateDashboard();
 
