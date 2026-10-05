@@ -1,11 +1,10 @@
 /* =========================================
-   LABSAINS APP
-   Versi stabil
+   LABSAINS PRO
 ========================================= */
 
 
 /* =========================================
-   DATA BAHAN KIMIA
+   KATALOG BAHAN KIMIA
 ========================================= */
 
 const chemicalCatalog = [
@@ -116,20 +115,45 @@ const chemicalCatalog = [
     category: "Garam",
     icon: "🧪",
     warning: ""
+  },
+
+  {
+    id: "potassium_iodide",
+    name: "Kalium Iodida",
+    formula: "KI",
+    category: "Garam",
+    icon: "🧪",
+    warning: ""
+  },
+
+  {
+    id: "calcium_carbonate",
+    name: "Kalsium Karbonat",
+    formula: "CaCO₃",
+    category: "Garam",
+    icon: "🧪",
+    warning: ""
   }
 
 ];
 
 
 /* =========================================
-   DATA ALAT / RADAS
+   KATALOG RADAS
 ========================================= */
 
 const equipmentCatalog = [
 
   {
+    id: "microscope",
+    name: "Mikroskop",
+    category: "Optik",
+    icon: "🔬"
+  },
+
+  {
     id: "beaker",
-    name: "Bikar",
+    name: "Bikar 100 ml",
     category: "Bekas",
     icon: "🥛"
   },
@@ -170,13 +194,6 @@ const equipmentCatalog = [
   },
 
   {
-    id: "pipette",
-    name: "Pipet",
-    category: "Pemindahan",
-    icon: "💧"
-  },
-
-  {
     id: "burette",
     name: "Buret",
     category: "Titrasi",
@@ -184,10 +201,17 @@ const equipmentCatalog = [
   },
 
   {
-    id: "funnel",
-    name: "Corong",
+    id: "pipette",
+    name: "Pipet",
     category: "Pemindahan",
-    icon: "🔻"
+    icon: "💧"
+  },
+
+  {
+    id: "dropper",
+    name: "Penitis",
+    category: "Pemindahan",
+    icon: "💧"
   },
 
   {
@@ -205,24 +229,10 @@ const equipmentCatalog = [
   },
 
   {
-    id: "microscope",
-    name: "Mikroskop",
-    category: "Optik",
-    icon: "🔬"
-  },
-
-  {
     id: "spatula",
     name: "Spatula",
     category: "Pengendalian bahan",
     icon: "🥄"
-  },
-
-  {
-    id: "dropper",
-    name: "Penitis",
-    category: "Pemindahan",
-    icon: "💧"
   },
 
   {
@@ -237,80 +247,162 @@ const equipmentCatalog = [
     name: "Kasa Dawai",
     category: "Pemanasan",
     icon: "▦"
+  },
+
+  {
+    id: "bunsen",
+    name: "Penunu Bunsen",
+    category: "Pemanasan",
+    icon: "🔥"
+  },
+
+  {
+    id: "funnel",
+    name: "Corong",
+    category: "Pemindahan",
+    icon: "🔻"
   }
 
 ];
 
 
 /* =========================================
-   INVENTORI
+   DATA EKSPERIMEN
 ========================================= */
 
-let inventory = [];
+const defaultExperiments = [
 
-try {
+  {
+    id: "exp1",
+    name: "Ujian Kanji Dalam Makanan",
+    className: "Tingkatan 4 • Biologi",
+    group: "Kumpulan 1",
+    status: "Selesai",
+    date: "2026-10-04",
+    icon: "🧪"
+  },
 
-  const saved =
-    localStorage.getItem("labsains_inventory");
+  {
+    id: "exp2",
+    name: "Fotosintesis",
+    className: "Tingkatan 4 • Biologi",
+    group: "Kumpulan 2",
+    status: "Dalam proses",
+    date: "2026-10-04",
+    icon: "🌱"
+  },
 
-  if (saved) {
+  {
+    id: "exp3",
+    name: "Tindak Balas Asid & Alkali",
+    className: "Tingkatan 3 • Sains",
+    group: "Kumpulan 3",
+    status: "Dalam proses",
+    date: "2026-10-03",
+    icon: "🧪"
+  },
 
-    inventory = JSON.parse(saved);
+  {
+    id: "exp4",
+    name: "Kesan Suhu Terhadap Kadar Tindak Balas",
+    className: "Tingkatan 5 • Kimia",
+    group: "Kumpulan 1",
+    status: "Dalam proses",
+    date: "2026-10-02",
+    icon: "🔥"
+  },
 
+  {
+    id: "exp5",
+    name: "Pengekstrakan DNA",
+    className: "Tingkatan 5 • Biologi",
+    group: "Kumpulan 2",
+    status: "Dalam proses",
+    date: "2026-10-01",
+    icon: "🧬"
   }
 
-} catch (error) {
-
-  console.error(
-    "Ralat membaca inventori:",
-    error
-  );
-
-  inventory = [];
-
-}
-
-
-if (!Array.isArray(inventory)) {
-
-  inventory = [];
-
-}
-
-
-let currentFilter = "all";
+];
 
 
 /* =========================================
-   SIMPAN INVENTORI
+   STORAGE
+========================================= */
+
+function loadData(key, fallback) {
+
+  try {
+
+    const saved =
+      localStorage.getItem(key);
+
+    if (saved) {
+
+      return JSON.parse(saved);
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+  return fallback;
+
+}
+
+
+let inventory =
+  loadData(
+    "labsains_pro_inventory",
+    []
+  );
+
+
+let experiments =
+  loadData(
+    "labsains_pro_experiments",
+    defaultExperiments
+  );
+
+
+let inventoryFilter = "all";
+
+let chemicalFilter = "all";
+
+let experimentFilter = "all";
+
+
+/* =========================================
+   SAVE
 ========================================= */
 
 function saveInventory() {
 
-  try {
+  localStorage.setItem(
+    "labsains_pro_inventory",
+    JSON.stringify(inventory)
+  );
 
-    localStorage.setItem(
-      "labsains_inventory",
-      JSON.stringify(inventory)
-    );
+}
 
-  } catch (error) {
 
-    console.error(
-      "Gagal menyimpan inventori:",
-      error
-    );
+function saveExperiments() {
 
-  }
+  localStorage.setItem(
+    "labsains_pro_experiments",
+    JSON.stringify(experiments)
+  );
 
 }
 
 
 /* =========================================
-   NAVIGATION
+   PAGE NAVIGATION
 ========================================= */
 
-function openPage(pageId) {
+function openPage(pageId, navButton) {
 
   document
     .querySelectorAll(".page")
@@ -325,9 +417,37 @@ function openPage(pageId) {
     document.getElementById(pageId);
 
 
-  if (page) {
+  if (!page) return;
 
-    page.classList.add("active");
+
+  page.classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  if (navButton) {
+
+    navButton.classList.add("active");
+
+  } else {
+
+    const matching =
+      document.querySelector(
+        `.nav-item[onclick*="${pageId}"]`
+      );
+
+    if (matching) {
+
+      matching.classList.add("active");
+
+    }
 
   }
 
@@ -338,11 +458,29 @@ function openPage(pageId) {
   });
 
 
+  updateDashboard();
+
   renderInventory();
 
-  renderChemicalCatalog();
+  renderChemicals();
 
-  updateDashboard();
+  renderExperiments();
+
+}
+
+
+/* =========================================
+   SIDE MENU
+========================================= */
+
+function toggleSideMenu() {
+
+  const menu =
+    document.getElementById("sideMenu");
+
+  if (!menu) return;
+
+  menu.classList.toggle("open");
 
 }
 
@@ -353,24 +491,18 @@ function openPage(pageId) {
 
 function openAddMenu() {
 
-  const menu =
-    document.getElementById("addMenu");
-
-  if (!menu) return;
-
-  menu.classList.remove("hidden");
+  document
+    .getElementById("addMenu")
+    .classList.remove("hidden");
 
 }
 
 
 function closeAddMenu() {
 
-  const menu =
-    document.getElementById("addMenu");
-
-  if (!menu) return;
-
-  menu.classList.add("hidden");
+  document
+    .getElementById("addMenu")
+    .classList.add("hidden");
 
 }
 
@@ -381,28 +513,11 @@ function closeAddMenu() {
 
 function openChemicalModal() {
 
-  closeAddMenu();
+  closeAllModals();
 
-
-  const modal =
-    document.getElementById(
-      "chemicalModal"
-    );
-
-
-  if (!modal) {
-
-    console.error(
-      "chemicalModal tidak dijumpai."
-    );
-
-    return;
-
-  }
-
-
-  modal.classList.remove("hidden");
-
+  document
+    .getElementById("chemicalModal")
+    .classList.remove("hidden");
 
   renderChemicalOptions();
 
@@ -411,23 +526,15 @@ function openChemicalModal() {
 
 function closeChemicalModal() {
 
-  const modal =
-    document.getElementById(
-      "chemicalModal"
-    );
-
-
-  if (modal) {
-
-    modal.classList.add("hidden");
-
-  }
+  document
+    .getElementById("chemicalModal")
+    .classList.add("hidden");
 
 }
 
 
 /* =========================================
-   PAPAR SENARAI KIMIA
+   CHEMICAL OPTIONS
 ========================================= */
 
 function renderChemicalOptions() {
@@ -437,23 +544,12 @@ function renderChemicalOptions() {
       "chemicalOptions"
     );
 
-
-  if (!container) {
-
-    console.error(
-      "chemicalOptions tidak dijumpai."
-    );
-
-    return;
-
-  }
-
+  if (!container) return;
 
   container.innerHTML = "";
 
 
   chemicalCatalog.forEach(item => {
-
 
     const exists =
       inventory.some(
@@ -463,51 +559,63 @@ function renderChemicalOptions() {
       );
 
 
-    const div =
+    const card =
       document.createElement("div");
 
+    card.className =
+      "catalog-card";
 
-    div.className =
-      "catalog-item";
+
+    card.innerHTML = `
+
+      <div class="catalog-top">
+
+        <div class="catalog-icon">
+          ${item.icon}
+        </div>
+
+        <div>
+
+          <strong>
+            ${item.name}
+          </strong>
+
+          <small>
+            ${item.formula}
+            •
+            ${item.category}
+          </small>
+
+        </div>
+
+      </div>
 
 
-    div.innerHTML = `
+      <div class="catalog-info">
 
-      <strong>
-        ${item.icon} ${item.name}
-      </strong>
+        ${
+          item.warning
+            ? "⚠️ " + item.warning
+            : "✓ Pengendalian mengikut SDS/SOP"
+        }
 
-      <p>
-        Formula: ${item.formula}<br>
-        Kategori: ${item.category}
-      </p>
+      </div>
 
-      ${
-        item.warning
-          ? `
-            <span class="warning-tag">
-              ⚠️ ${item.warning}
-            </span>
-          `
-          : ""
-      }
-
-      <br><br>
 
       <button
-        class="add-btn"
-        type="button"
+        class="catalog-btn"
         ${
           exists
             ? "disabled"
             : ""
         }
-        onclick="addChemical('${item.id}')">
+        onclick="addChemical('${item.id}')"
+      >
 
         ${
           exists
             ? "✓ Sudah dalam inventori"
-            : "+ Tambah"
+            : "+ Tambah ke Inventori"
         }
 
       </button>
@@ -515,7 +623,7 @@ function renderChemicalOptions() {
     `;
 
 
-    container.appendChild(div);
+    container.appendChild(card);
 
   });
 
@@ -523,7 +631,7 @@ function renderChemicalOptions() {
 
 
 /* =========================================
-   TAMBAH KIMIA
+   ADD CHEMICAL
 ========================================= */
 
 function addChemical(id) {
@@ -534,15 +642,7 @@ function addChemical(id) {
     );
 
 
-  if (!item) {
-
-    alert(
-      "Bahan kimia tidak dijumpai."
-    );
-
-    return;
-
-  }
+  if (!item) return;
 
 
   const exists =
@@ -567,8 +667,7 @@ function addChemical(id) {
   inventory.push({
 
     id:
-      "chemical_" +
-      Date.now(),
+      "chem_" + Date.now(),
 
     catalogId:
       item.id,
@@ -588,6 +687,23 @@ function addChemical(id) {
     icon:
       item.icon,
 
+    quantity:
+      1,
+
+    unit:
+      "botol",
+
+    location:
+      "Belum ditetapkan",
+
+    expiry:
+      "",
+
+    status:
+      item.warning
+        ? "Perhatian"
+        : "Selamat",
+
     warning:
       item.warning
 
@@ -598,15 +714,13 @@ function addChemical(id) {
 
   updateDashboard();
 
-  renderInventory();
+  renderChemicals();
 
   renderChemicalOptions();
 
-  renderChemicalCatalog();
-
-
   alert(
-    `${item.name} telah ditambah ke inventori.`
+    item.name +
+    " telah ditambah ke inventori."
   );
 
 }
@@ -618,28 +732,11 @@ function addChemical(id) {
 
 function openEquipmentModal() {
 
-  closeAddMenu();
+  closeAllModals();
 
-
-  const modal =
-    document.getElementById(
-      "equipmentModal"
-    );
-
-
-  if (!modal) {
-
-    console.error(
-      "equipmentModal tidak dijumpai."
-    );
-
-    return;
-
-  }
-
-
-  modal.classList.remove("hidden");
-
+  document
+    .getElementById("equipmentModal")
+    .classList.remove("hidden");
 
   renderEquipmentOptions();
 
@@ -648,23 +745,15 @@ function openEquipmentModal() {
 
 function closeEquipmentModal() {
 
-  const modal =
-    document.getElementById(
-      "equipmentModal"
-    );
-
-
-  if (modal) {
-
-    modal.classList.add("hidden");
-
-  }
+  document
+    .getElementById("equipmentModal")
+    .classList.add("hidden");
 
 }
 
 
 /* =========================================
-   PAPAR SENARAI RADAS
+   EQUIPMENT OPTIONS
 ========================================= */
 
 function renderEquipmentOptions() {
@@ -674,23 +763,12 @@ function renderEquipmentOptions() {
       "equipmentOptions"
     );
 
-
-  if (!container) {
-
-    console.error(
-      "equipmentOptions tidak dijumpai."
-    );
-
-    return;
-
-  }
-
+  if (!container) return;
 
   container.innerHTML = "";
 
 
   equipmentCatalog.forEach(item => {
-
 
     const exists =
       inventory.some(
@@ -700,38 +778,55 @@ function renderEquipmentOptions() {
       );
 
 
-    const div =
+    const card =
       document.createElement("div");
 
+    card.className =
+      "catalog-card";
 
-    div.className =
-      "catalog-item";
+
+    card.innerHTML = `
+
+      <div class="catalog-top">
+
+        <div class="catalog-icon">
+          ${item.icon}
+        </div>
+
+        <div>
+
+          <strong>
+            ${item.name}
+          </strong>
+
+          <small>
+            ${item.category}
+          </small>
+
+        </div>
+
+      </div>
 
 
-    div.innerHTML = `
+      <div class="catalog-info">
+        Peralatan makmal
+      </div>
 
-      <strong>
-        ${item.icon} ${item.name}
-      </strong>
-
-      <p>
-        Kategori: ${item.category}
-      </p>
 
       <button
-        class="add-btn"
-        type="button"
+        class="catalog-btn"
         ${
           exists
             ? "disabled"
             : ""
         }
-        onclick="addEquipment('${item.id}')">
+        onclick="addEquipment('${item.id}')"
+      >
 
         ${
           exists
             ? "✓ Sudah dalam inventori"
-            : "+ Tambah"
+            : "+ Tambah ke Inventori"
         }
 
       </button>
@@ -739,7 +834,7 @@ function renderEquipmentOptions() {
     `;
 
 
-    container.appendChild(div);
+    container.appendChild(card);
 
   });
 
@@ -747,7 +842,7 @@ function renderEquipmentOptions() {
 
 
 /* =========================================
-   TAMBAH RADAS
+   ADD EQUIPMENT
 ========================================= */
 
 function addEquipment(id) {
@@ -758,15 +853,7 @@ function addEquipment(id) {
     );
 
 
-  if (!item) {
-
-    alert(
-      "Peralatan tidak dijumpai."
-    );
-
-    return;
-
-  }
+  if (!item) return;
 
 
   const exists =
@@ -780,7 +867,7 @@ function addEquipment(id) {
   if (exists) {
 
     alert(
-      "Alat ini sudah ada dalam inventori."
+      "Peralatan ini sudah ada."
     );
 
     return;
@@ -791,8 +878,7 @@ function addEquipment(id) {
   inventory.push({
 
     id:
-      "equipment_" +
-      Date.now(),
+      "equip_" + Date.now(),
 
     catalogId:
       item.id,
@@ -803,17 +889,23 @@ function addEquipment(id) {
     name:
       item.name,
 
-    formula:
-      "",
-
     category:
       item.category,
 
     icon:
       item.icon,
 
-    warning:
-      ""
+    quantity:
+      1,
+
+    unit:
+      "unit",
+
+    location:
+      "Belum ditetapkan",
+
+    status:
+      "Baik"
 
   });
 
@@ -826,16 +918,16 @@ function addEquipment(id) {
 
   renderEquipmentOptions();
 
-
   alert(
-    `${item.name} telah ditambah ke inventori.`
+    item.name +
+    " telah ditambah ke inventori."
   );
 
 }
 
 
 /* =========================================
-   INVENTORY DISPLAY
+   INVENTORY RENDER
 ========================================= */
 
 function renderInventory() {
@@ -845,14 +937,13 @@ function renderInventory() {
       "inventoryList"
     );
 
-
   if (!container) return;
 
 
   const search =
     (
       document.getElementById(
-        "searchInput"
+        "inventorySearch"
       )?.value || ""
     )
     .toLowerCase()
@@ -862,56 +953,50 @@ function renderInventory() {
   const filtered =
     inventory.filter(item => {
 
-
-      const name =
-        String(
-          item.name || ""
-        ).toLowerCase();
-
-
-      const category =
-        String(
-          item.category || ""
-        ).toLowerCase();
+      const text =
+        (
+          item.name +
+          " " +
+          item.category +
+          " " +
+          item.location
+        )
+        .toLowerCase();
 
 
-      const formula =
-        String(
-          item.formula || ""
-        ).toLowerCase();
+      const searchMatch =
+        text.includes(search);
 
 
-      const matchesSearch =
-        name.includes(search) ||
-        category.includes(search) ||
-        formula.includes(search);
-
-
-      const matchesFilter =
-        currentFilter === "all" ||
-        item.type === currentFilter;
+      const filterMatch =
+        inventoryFilter === "all" ||
+        item.status === inventoryFilter;
 
 
       return (
-        matchesSearch &&
-        matchesFilter
+        searchMatch &&
+        filterMatch
       );
 
     });
 
 
-  if (filtered.length === 0) {
+  if (!filtered.length) {
 
     container.innerHTML = `
 
       <div class="empty">
 
-        <div style="font-size:40px">
+        <div class="empty-icon">
           📦
         </div>
 
+        <strong>
+          Tiada peralatan ditemui
+        </strong>
+
         <p>
-          Tiada item ditemui.
+          Tekan + Tambah untuk memasukkan radas.
         </p>
 
       </div>
@@ -928,65 +1013,614 @@ function renderInventory() {
 
   filtered.forEach(item => {
 
-    const div =
+    const statusClass =
+      item.status === "Baik"
+        ? "good"
+        : item.status === "Stok rendah"
+          ? "warning"
+          : "danger";
+
+
+    const card =
       document.createElement("div");
 
+    card.className =
+      "list-card";
 
-    div.className =
-      "inventory-item";
 
+    card.innerHTML = `
 
-    div.innerHTML = `
-
-      <div class="item-icon">
-        ${item.icon || "📦"}
+      <div class="list-icon">
+        ${item.icon || "🔬"}
       </div>
 
-      <div class="item-info">
+
+      <div class="list-content">
 
         <strong>
-          ${item.name || "Item"}
+          ${item.name}
         </strong>
 
         <small>
-
-          ${item.category || ""}
-
-          ${
-            item.formula
-              ? " • " + item.formula
-              : ""
-          }
-
+          ${item.category || "Peralatan"}
+          •
+          ${item.quantity || 0}
+          ${item.unit || "unit"}
         </small>
 
-        ${
-          item.warning
-            ? `
-              <div>
-                <span class="warning-tag">
-                  ⚠️ ${item.warning}
-                </span>
-              </div>
-            `
-            : ""
-        }
+        <small>
+          📍 ${item.location || "Belum ditetapkan"}
+        </small>
+
+        <span class="status ${statusClass}">
+          ${item.status || "Baik"}
+        </span>
 
       </div>
 
+
       <button
-        class="delete-btn"
-        type="button"
-        onclick="deleteItem('${item.id}')">
-
+        class="list-action"
+        onclick="deleteInventory('${item.id}')"
+      >
         🗑️
-
       </button>
 
     `;
 
 
-    container.appendChild(div);
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================
+   INVENTORY FILTER
+========================================= */
+
+function setInventoryFilter(
+  filter,
+  button
+) {
+
+  inventoryFilter = filter;
+
+  activateFilter(
+    button
+  );
+
+  renderInventory();
+
+}
+
+
+/* =========================================
+   CHEMICAL RENDER
+========================================= */
+
+function renderChemicals() {
+
+  const container =
+    document.getElementById(
+      "chemicalList"
+    );
+
+  if (!container) return;
+
+
+  const search =
+    (
+      document.getElementById(
+        "chemicalSearch"
+      )?.value || ""
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const chemicals =
+    inventory.filter(
+      x => x.type === "chemical"
+    );
+
+
+  const filtered =
+    chemicals.filter(item => {
+
+      const text =
+        (
+          item.name +
+          " " +
+          item.formula +
+          " " +
+          item.category
+        )
+        .toLowerCase();
+
+
+      const searchMatch =
+        text.includes(search);
+
+
+      const filterMatch =
+        chemicalFilter === "all" ||
+        item.status === chemicalFilter;
+
+
+      return (
+        searchMatch &&
+        filterMatch
+      );
+
+    });
+
+
+  if (!filtered.length) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          🧪
+        </div>
+
+        <strong>
+          Tiada bahan kimia ditemui
+        </strong>
+
+        <p>
+          Tekan + Tambah untuk memilih bahan.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  filtered.forEach(item => {
+
+    const attention =
+      item.warning
+        ? "danger"
+        : "good";
+
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "list-card";
+
+
+    card.innerHTML = `
+
+      <div class="list-icon">
+        ${item.icon || "🧪"}
+      </div>
+
+
+      <div class="list-content">
+
+        <strong>
+          ${item.name}
+        </strong>
+
+        <small>
+          ${item.formula}
+          •
+          ${item.quantity || 0}
+          ${item.unit || "botol"}
+        </small>
+
+        <small>
+          📍 ${item.location || "Belum ditetapkan"}
+        </small>
+
+        ${
+          item.expiry
+            ? `
+              <small>
+                📅 Luput: ${item.expiry}
+              </small>
+            `
+            : ""
+        }
+
+
+        <span class="status ${attention}">
+          ${
+            item.warning
+              ? "⚠️ Perhatian"
+              : "✓ Selamat"
+          }
+        </span>
+
+      </div>
+
+
+      <button
+        class="list-action"
+        onclick="deleteInventory('${item.id}')"
+      >
+        🗑️
+      </button>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================
+   CHEMICAL FILTER
+========================================= */
+
+function setChemicalFilter(
+  filter,
+  button
+) {
+
+  chemicalFilter = filter;
+
+  activateFilter(
+    button
+  );
+
+  renderChemicals();
+
+}
+
+
+/* =========================================
+   EXPERIMENTS
+========================================= */
+
+function renderExperiments() {
+
+  const container =
+    document.getElementById(
+      "experimentList"
+    );
+
+  if (!container) return;
+
+
+  const search =
+    (
+      document.getElementById(
+        "experimentSearch"
+      )?.value || ""
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const filtered =
+    experiments.filter(item => {
+
+      const text =
+        (
+          item.name +
+          " " +
+          item.className +
+          " " +
+          item.group
+        )
+        .toLowerCase();
+
+
+      const searchMatch =
+        text.includes(search);
+
+
+      const filterMatch =
+        experimentFilter === "all" ||
+        item.status === experimentFilter;
+
+
+      return (
+        searchMatch &&
+        filterMatch
+      );
+
+    });
+
+
+  if (!filtered.length) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          🧫
+        </div>
+
+        <strong>
+          Tiada eksperimen
+        </strong>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  filtered.forEach(item => {
+
+    const statusClass =
+      item.status === "Selesai"
+        ? "good"
+        : "warning";
+
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "list-card";
+
+
+    card.innerHTML = `
+
+      <div class="list-icon">
+        ${item.icon || "🧫"}
+      </div>
+
+
+      <div class="list-content">
+
+        <strong>
+          ${item.name}
+        </strong>
+
+        <small>
+          ${item.className || ""}
+        </small>
+
+        <small>
+          👥 ${item.group || "Kumpulan"}
+          •
+          📅 ${item.date || "-"}
+        </small>
+
+        <span class="status ${statusClass}">
+          ${item.status}
+        </span>
+
+      </div>
+
+
+      <button
+        class="list-action"
+        onclick="deleteExperiment('${item.id}')"
+      >
+        🗑️
+      </button>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================
+   EXPERIMENT FILTER
+========================================= */
+
+function setExperimentFilter(
+  filter,
+  button
+) {
+
+  experimentFilter = filter;
+
+  activateFilter(
+    button
+  );
+
+  renderExperiments();
+
+}
+
+
+/* =========================================
+   FILTER BUTTON
+========================================= */
+
+function activateFilter(button) {
+
+  if (!button) return;
+
+
+  button
+    .parentElement
+    .querySelectorAll(".filter")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  button.classList.add("active");
+
+}
+
+
+/* =========================================
+   EXPERIMENT MODAL
+========================================= */
+
+function openExperimentModal() {
+
+  closeAllModals();
+
+
+  document
+    .getElementById("experimentModal")
+    .classList.remove("hidden");
+
+
+  const date =
+    document.getElementById(
+      "expDate"
+    );
+
+
+  if (date && !date.value) {
+
+    date.value =
+      new Date()
+        .toISOString()
+        .split("T")[0];
+
+  }
+
+}
+
+
+function closeExperimentModal() {
+
+  document
+    .getElementById("experimentModal")
+    .classList.add("hidden");
+
+}
+
+
+/* =========================================
+   SAVE EXPERIMENT
+========================================= */
+
+function saveExperiment() {
+
+  const name =
+    document.getElementById(
+      "expName"
+    ).value.trim();
+
+
+  if (!name) {
+
+    alert(
+      "Sila masukkan nama eksperimen."
+    );
+
+    return;
+
+  }
+
+
+  const experiment = {
+
+    id:
+      "exp_" + Date.now(),
+
+    name:
+      name,
+
+    className:
+      document.getElementById(
+        "expClass"
+      ).value.trim(),
+
+    group:
+      document.getElementById(
+        "expGroup"
+      ).value.trim(),
+
+    observation:
+      document.getElementById(
+        "expObservation"
+      ).value.trim(),
+
+    result:
+      document.getElementById(
+        "expResult"
+      ).value.trim(),
+
+    status:
+      document.getElementById(
+        "expStatus"
+      ).value,
+
+    date:
+      document.getElementById(
+        "expDate"
+      ).value,
+
+    icon:
+      "🧫"
+
+  };
+
+
+  experiments.unshift(
+    experiment
+  );
+
+
+  saveExperiments();
+
+  closeExperimentModal();
+
+  clearExperimentForm();
+
+  renderExperiments();
+
+  updateDashboard();
+
+  alert(
+    "Rekod eksperimen berjaya disimpan."
+  );
+
+}
+
+
+/* =========================================
+   CLEAR FORM
+========================================= */
+
+function clearExperimentForm() {
+
+  [
+    "expClass",
+    "expName",
+    "expGroup",
+    "expObservation",
+    "expResult"
+  ]
+  .forEach(id => {
+
+    const el =
+      document.getElementById(id);
+
+    if (el) el.value = "";
 
   });
 
@@ -997,7 +1631,7 @@ function renderInventory() {
    DELETE
 ========================================= */
 
-function deleteItem(id) {
+function deleteInventory(id) {
 
   const item =
     inventory.find(
@@ -1008,13 +1642,11 @@ function deleteItem(id) {
   if (!item) return;
 
 
-  const confirmDelete =
-    confirm(
+  if (
+    !confirm(
       `Padam "${item.name}" daripada inventori?`
-    );
-
-
-  if (!confirmDelete) return;
+    )
+  ) return;
 
 
   inventory =
@@ -1029,142 +1661,44 @@ function deleteItem(id) {
 
   renderInventory();
 
+  renderChemicals();
+
   renderChemicalOptions();
 
   renderEquipmentOptions();
 
-  renderChemicalCatalog();
-
 }
 
 
-/* =========================================
-   FILTER
-========================================= */
+function deleteExperiment(id) {
 
-function setFilter(
-  filter,
-  button
-) {
-
-  currentFilter =
-    filter;
-
-
-  document
-    .querySelectorAll(".filter")
-    .forEach(btn => {
-
-      btn.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  if (button) {
-
-    button.classList.add(
-      "active"
-    );
-
-  }
-
-
-  renderInventory();
-
-}
-
-
-/* =========================================
-   CHEMICAL CATALOG PAGE
-========================================= */
-
-function renderChemicalCatalog() {
-
-  const container =
-    document.getElementById(
-      "chemicalCatalog"
+  const item =
+    experiments.find(
+      x => x.id === id
     );
 
 
-  if (!container) return;
+  if (!item) return;
 
 
-  container.innerHTML = "";
+  if (
+    !confirm(
+      `Padam rekod "${item.name}"?`
+    )
+  ) return;
 
 
-  chemicalCatalog.forEach(item => {
+  experiments =
+    experiments.filter(
+      x => x.id !== id
+    );
 
 
-    const exists =
-      inventory.some(
-        x =>
-          x.type === "chemical" &&
-          x.catalogId === item.id
-      );
+  saveExperiments();
 
+  renderExperiments();
 
-    const div =
-      document.createElement("div");
-
-
-    div.className =
-      "catalog-item";
-
-
-    div.innerHTML = `
-
-      <strong>
-        ${item.icon}
-        ${item.name}
-      </strong>
-
-      <p>
-
-        Formula:
-        ${item.formula}
-
-        <br>
-
-        Kategori:
-        ${item.category}
-
-        ${
-          item.warning
-            ? `
-              <br>
-              ⚠️ ${item.warning}
-            `
-            : ""
-        }
-
-      </p>
-
-      <button
-        class="add-btn"
-        type="button"
-        ${
-          exists
-            ? "disabled"
-            : ""
-        }
-        onclick="addChemical('${item.id}')">
-
-        ${
-          exists
-            ? "✓ Dalam Inventori"
-            : "+ Tambah ke Inventori"
-        }
-
-      </button>
-
-    `;
-
-
-    container.appendChild(div);
-
-  });
+  updateDashboard();
 
 }
 
@@ -1187,103 +1721,275 @@ function updateDashboard() {
     ).length;
 
 
+  const experimentCount =
+    experiments.length;
+
+
   const warnings =
     inventory.filter(
       x =>
-        x.type === "chemical" &&
-        x.warning
+        (
+          x.warning ||
+          x.status === "Rosak" ||
+          x.status === "Stok rendah"
+        )
     ).length;
 
 
-  const equipmentCount =
+  const equipmentEl =
     document.getElementById(
       "equipmentCount"
     );
 
 
-  const chemicalCount =
+  const chemicalEl =
     document.getElementById(
       "chemicalCount"
     );
 
 
-  const warningCount =
-    document.getElementById(
-      "warningCount"
-    );
-
-
-  const experimentCount =
+  const experimentEl =
     document.getElementById(
       "experimentCount"
     );
 
 
-  if (equipmentCount) {
+  const warningEl =
+    document.getElementById(
+      "warningCount"
+    );
 
-    equipmentCount.textContent =
+
+  if (equipmentEl)
+    equipmentEl.textContent =
       equipment;
 
-  }
 
-
-  if (chemicalCount) {
-
-    chemicalCount.textContent =
+  if (chemicalEl)
+    chemicalEl.textContent =
       chemicals;
 
-  }
+
+  if (experimentEl)
+    experimentEl.textContent =
+      experimentCount;
 
 
-  if (warningCount) {
-
-    warningCount.textContent =
+  if (warningEl)
+    warningEl.textContent =
       warnings;
 
-  }
 
-
-  if (experimentCount) {
-
-    experimentCount.textContent =
-      "7";
-
-  }
+  renderRecent();
 
 }
 
 
 /* =========================================
-   INSTALL
+   RECENT ACTIVITY
 ========================================= */
 
-function showInstallInfo() {
+function renderRecent() {
 
-  alert(
-    "Untuk memasang LABSAINS sebagai aplikasi, gunakan menu browser 'Add to Home screen' atau 'Install app' jika tersedia."
-  );
+  const container =
+    document.getElementById(
+      "recentList"
+    );
+
+  if (!container) return;
+
+
+  const recent =
+    experiments.slice(0,3);
+
+
+  if (!recent.length) {
+
+    container.innerHTML = "";
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  recent.forEach(item => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "list-card";
+
+
+    card.innerHTML = `
+
+      <div class="list-icon">
+        ${item.icon}
+      </div>
+
+      <div class="list-content">
+
+        <strong>
+          ${item.name}
+        </strong>
+
+        <small>
+          ${item.className || ""}
+        </small>
+
+        <span class="status ${
+          item.status === "Selesai"
+            ? "good"
+            : "warning"
+        }">
+          ${item.status}
+        </span>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(card);
+
+  });
 
 }
 
 
 /* =========================================
-   START APP
+   MODAL UTILITIES
+========================================= */
+
+function closeAllModals() {
+
+  [
+    "addMenu",
+    "chemicalModal",
+    "equipmentModal",
+    "experimentModal"
+  ]
+  .forEach(id => {
+
+    const modal =
+      document.getElementById(id);
+
+    if (modal) {
+
+      modal.classList.add(
+        "hidden"
+      );
+
+    }
+
+  });
+
+}
+
+
+function closeIfOutside(
+  event,
+  id
+) {
+
+  if (
+    event.target.id === id
+  ) {
+
+    document
+      .getElementById(id)
+      .classList.add("hidden");
+
+  }
+
+}
+
+
+/* =========================================
+   NOTIFICATION
+========================================= */
+
+function showNotification() {
+
+  const warnings =
+    inventory.filter(
+      x =>
+        x.warning ||
+        x.status === "Rosak" ||
+        x.status === "Stok rendah"
+    ).length;
+
+
+  if (warnings > 0) {
+
+    alert(
+      `LABSAINS mempunyai ${warnings} item yang memerlukan perhatian.`
+    );
+
+  } else {
+
+    alert(
+      "Tiada amaran inventori buat masa ini."
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   START
 ========================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   function () {
 
-    console.log(
-      "LABSAINS berjaya dimulakan."
+    setTimeout(
+      function () {
+
+        const splash =
+          document.getElementById(
+            "splashScreen"
+          );
+
+
+        const app =
+          document.getElementById(
+            "app"
+          );
+
+
+        if (splash)
+          splash.classList.add(
+            "hidden"
+          );
+
+
+        if (app)
+          app.classList.remove(
+            "hidden"
+          );
+
+
+        updateDashboard();
+
+        renderInventory();
+
+        renderChemicals();
+
+        renderExperiments();
+
+        renderChemicalOptions();
+
+        renderEquipmentOptions();
+
+      },
+      1200
     );
-
-
-    updateDashboard();
-
-    renderInventory();
-
-    renderChemicalCatalog();
 
   }
 );
