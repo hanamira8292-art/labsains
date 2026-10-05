@@ -1,6 +1,6 @@
 /* =========================================
    LABSAINS APP
-   Versi stabil untuk PWA
+   Versi stabil
 ========================================= */
 
 
@@ -255,8 +255,7 @@ try {
 
   if (saved) {
 
-    inventory =
-      JSON.parse(saved);
+    inventory = JSON.parse(saved);
 
   }
 
@@ -272,8 +271,6 @@ try {
 }
 
 
-/* Jika inventori kosong, masukkan contoh awal */
-
 if (!Array.isArray(inventory)) {
 
   inventory = [];
@@ -281,15 +278,11 @@ if (!Array.isArray(inventory)) {
 }
 
 
-/* =========================================
-   FILTER
-========================================= */
-
 let currentFilter = "all";
 
 
 /* =========================================
-   STORAGE
+   SIMPAN INVENTORI
 ========================================= */
 
 function saveInventory() {
