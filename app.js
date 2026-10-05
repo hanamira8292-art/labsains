@@ -1,409 +1,439 @@
-/* =========================================
+/* =====================================================
    LABSAINS PRO
-   SISTEM PENGURUSAN MAKMAL
-========================================= */
+   Sistem Pengurusan Makmal
+===================================================== */
 
 
-/* =========================================
+/* =====================================================
    KATALOG BAHAN KIMIA
-========================================= */
+===================================================== */
 
 const chemicalCatalog = [
 
   {
-    id: "hcl",
     name: "Asid Hidroklorik",
     formula: "HCl",
     category: "Asid",
     icon: "🧪",
-    warning: "Menghakis"
+    status: "Perhatian"
   },
 
   {
-    id: "naoh",
     name: "Natrium Hidroksida",
     formula: "NaOH",
     category: "Alkali",
     icon: "🧪",
-    warning: "Menghakis"
+    status: "Perhatian"
   },
 
   {
-    id: "h2so4",
     name: "Asid Sulfurik",
     formula: "H₂SO₄",
     category: "Asid",
     icon: "🧪",
-    warning: "Sangat menghakis"
+    status: "Perhatian"
   },
 
   {
-    id: "acetic",
     name: "Asid Asetik",
     formula: "CH₃COOH",
-    category: "Asid lemah",
+    category: "Asid Lemah",
     icon: "🧪",
-    warning: "Boleh merengsa"
+    status: "Perhatian"
   },
 
   {
-    id: "ethanol",
     name: "Etanol",
     formula: "C₂H₅OH",
     category: "Pelarut",
     icon: "🧪",
-    warning: "Mudah terbakar"
+    status: "Perhatian"
   },
 
   {
-    id: "cuso4",
     name: "Kuprum(II) Sulfat",
     formula: "CuSO₄",
     category: "Garam",
     icon: "🧪",
-    warning: "Berbahaya jika tertelan"
+    status: "Perhatian"
   },
 
   {
-    id: "nacl",
     name: "Natrium Klorida",
     formula: "NaCl",
     category: "Garam",
     icon: "🧂",
-    warning: ""
+    status: "Selamat"
   },
 
   {
-    id: "iodine",
     name: "Larutan Iodin",
     formula: "I₂",
     category: "Reagen",
     icon: "🧪",
-    warning: "Merengsa"
+    status: "Perhatian"
   },
 
   {
-    id: "phenolphthalein",
     name: "Fenolftalein",
     formula: "C₂₀H₁₄O₄",
     category: "Penunjuk",
     icon: "🧪",
-    warning: "Gunakan mengikut SDS"
+    status: "Perhatian"
   },
 
   {
-    id: "bromothymol",
     name: "Bromotimol Biru",
     formula: "BTB",
     category: "Penunjuk",
     icon: "🧪",
-    warning: ""
+    status: "Selamat"
   },
 
   {
-    id: "hydrogen_peroxide",
     name: "Hidrogen Peroksida",
     formula: "H₂O₂",
     category: "Reagen",
     icon: "🧪",
-    warning: "Pengoksida"
+    status: "Perhatian"
   },
 
   {
-    id: "sodium_bicarbonate",
     name: "Natrium Bikarbonat",
     formula: "NaHCO₃",
     category: "Garam",
     icon: "🧪",
-    warning: ""
+    status: "Selamat"
   },
 
   {
-    id: "potassium_hydroxide",
     name: "Kalium Hidroksida",
     formula: "KOH",
     category: "Alkali",
     icon: "🧪",
-    warning: "Menghakis"
+    status: "Perhatian"
   },
 
   {
-    id: "calcium_carbonate",
     name: "Kalsium Karbonat",
     formula: "CaCO₃",
     category: "Garam",
     icon: "🧪",
-    warning: ""
+    status: "Selamat"
   },
 
   {
-    id: "ammonia",
-    name: "Larutan Ammonia",
-    formula: "NH₃",
-    category: "Alkali",
+    name: "Magnesium Sulfat",
+    formula: "MgSO₄",
+    category: "Garam",
     icon: "🧪",
-    warning: "Merengsa"
+    status: "Selamat"
   }
 
 ];
 
 
-/* =========================================
-   KATALOG RADAS
-========================================= */
+/* =====================================================
+   KATALOG PERALATAN
+===================================================== */
 
 const equipmentCatalog = [
 
   {
-    id: "beaker",
-    name: "Bikar",
-    category: "Bekas",
-    icon: "🥛"
-  },
-
-  {
-    id: "testtube",
-    name: "Tabung Uji",
-    category: "Bekas",
-    icon: "🧪"
-  },
-
-  {
-    id: "testtube_rack",
-    name: "Rak Tabung Uji",
-    category: "Sokongan",
-    icon: "🗄️"
-  },
-
-  {
-    id: "measuring_cylinder",
-    name: "Silinder Penyukat",
-    category: "Pengukuran",
-    icon: "🥛"
-  },
-
-  {
-    id: "conical_flask",
-    name: "Kelalang Kon",
-    category: "Bekas",
-    icon: "⚗️"
-  },
-
-  {
-    id: "volumetric_flask",
-    name: "Kelalang Volumetrik",
-    category: "Pengukuran",
-    icon: "⚗️"
-  },
-
-  {
-    id: "pipette",
-    name: "Pipet",
-    category: "Pemindahan",
-    icon: "💧"
-  },
-
-  {
-    id: "burette",
-    name: "Buret",
-    category: "Titrasi",
-    icon: "🧪"
-  },
-
-  {
-    id: "funnel",
-    name: "Corong",
-    category: "Pemindahan",
-    icon: "🔻"
-  },
-
-  {
-    id: "thermometer",
-    name: "Termometer",
-    category: "Pengukuran",
-    icon: "🌡️"
-  },
-
-  {
-    id: "balance",
-    name: "Neraca Digital",
-    category: "Pengukuran",
-    icon: "⚖️"
-  },
-
-  {
-    id: "microscope",
     name: "Mikroskop",
     category: "Optik",
     icon: "🔬"
   },
 
   {
-    id: "spatula",
-    name: "Spatula",
-    category: "Pengendalian bahan",
-    icon: "🥄"
+    name: "Bikar 100 mL",
+    category: "Bekas",
+    icon: "🥛"
   },
 
   {
-    id: "dropper",
-    name: "Penitis",
+    name: "Bikar 250 mL",
+    category: "Bekas",
+    icon: "🥛"
+  },
+
+  {
+    name: "Bikar 500 mL",
+    category: "Bekas",
+    icon: "🥛"
+  },
+
+  {
+    name: "Tabung Uji",
+    category: "Bekas",
+    icon: "🧪"
+  },
+
+  {
+    name: "Rak Tabung Uji",
+    category: "Sokongan",
+    icon: "🗄️"
+  },
+
+  {
+    name: "Silinder Penyukat",
+    category: "Pengukuran",
+    icon: "🧪"
+  },
+
+  {
+    name: "Kelalang Kon",
+    category: "Bekas",
+    icon: "⚗️"
+  },
+
+  {
+    name: "Kelalang Volumetrik",
+    category: "Pengukuran",
+    icon: "⚗️"
+  },
+
+  {
+    name: "Pipet",
     category: "Pemindahan",
     icon: "💧"
   },
 
   {
-    id: "tripod",
-    name: "Kaki Tiga",
-    category: "Sokongan",
-    icon: "🔺"
+    name: "Buret",
+    category: "Titrasi",
+    icon: "🧪"
   },
 
   {
-    id: "wire_gauze",
-    name: "Kasa Dawai",
-    category: "Pemanasan",
-    icon: "▦"
-  },
-
-  {
-    id: "bunsen",
     name: "Penunu Bunsen",
     category: "Pemanasan",
     icon: "🔥"
   },
 
   {
-    id: "glass_rod",
-    name: "Rod Kaca",
+    name: "Kaki Tiga",
+    category: "Sokongan",
+    icon: "🔺"
+  },
+
+  {
+    name: "Kasa Dawai",
+    category: "Pemanasan",
+    icon: "▦"
+  },
+
+  {
+    name: "Termometer",
+    category: "Pengukuran",
+    icon: "🌡️"
+  },
+
+  {
+    name: "Neraca Digital",
+    category: "Pengukuran",
+    icon: "⚖️"
+  },
+
+  {
+    name: "Spatula",
+    category: "Pengendalian",
+    icon: "🥄"
+  },
+
+  {
+    name: "Penitis",
     category: "Pemindahan",
-    icon: "📏"
-  },
-
-  {
-    id: "evaporating_dish",
-    name: "Piring Sejat",
-    category: "Pemanasan",
-    icon: "🥣"
-  },
-
-  {
-    id: "crucible",
-    name: "Mangkuk Pijar",
-    category: "Pemanasan",
-    icon: "⚪"
-  },
-
-  {
-    id: "wash_bottle",
-    name: "Botol Pencuci",
-    category: "Bekas",
     icon: "💧"
+  },
+
+  {
+    name: "Corong",
+    category: "Pemindahan",
+    icon: "🔻"
   }
 
 ];
 
 
-/* =========================================
-   INVENTORI
-========================================= */
+/* =====================================================
+   DATA INVENTORI
+===================================================== */
 
-let inventory = [];
+let inventory = loadInventory();
 
-try {
 
-  inventory =
-    JSON.parse(
-      localStorage.getItem(
-        "labsains_inventory"
-      )
-    ) || [];
+function loadInventory() {
 
-} catch (error) {
+  const saved =
+    localStorage.getItem(
+      "labsains_pro_inventory"
+    );
 
-  inventory = [];
+  if (saved) {
+
+    try {
+
+      return JSON.parse(saved);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  }
+
+
+  return [
+
+    {
+      id: createId(),
+      type: "equipment",
+      name: "Mikroskop",
+      formula: "",
+      category: "Optik",
+      icon: "🔬",
+      quantity: 12,
+      location: "Kabinet A2",
+      status: "Baik",
+      expiry: ""
+    },
+
+    {
+      id: createId(),
+      type: "equipment",
+      name: "Bikar 100 mL",
+      formula: "",
+      category: "Bekas",
+      icon: "🥛",
+      quantity: 35,
+      location: "Kabinet B1",
+      status: "Baik",
+      expiry: ""
+    },
+
+    {
+      id: createId(),
+      type: "equipment",
+      name: "Tabung Uji",
+      formula: "",
+      category: "Bekas",
+      icon: "🧪",
+      quantity: 52,
+      location: "Kabinet B1",
+      status: "Rosak",
+      expiry: ""
+    },
+
+    {
+      id: createId(),
+      type: "equipment",
+      name: "Penunu Bunsen",
+      formula: "",
+      category: "Pemanasan",
+      icon: "🔥",
+      quantity: 8,
+      location: "Kabinet C2",
+      status: "Baik",
+      expiry: ""
+    },
+
+    {
+      id: createId(),
+      type: "equipment",
+      name: "Pipet",
+      formula: "",
+      category: "Pemindahan",
+      icon: "💧",
+      quantity: 24,
+      location: "Kabinet C1",
+      status: "Baik",
+      expiry: ""
+    },
+
+    {
+      id: createId(),
+      type: "chemical",
+      name: "Asid Hidroklorik",
+      formula: "HCl",
+      category: "Asid",
+      icon: "🧪",
+      quantity: 2,
+      location: "Kabinet Kimia A",
+      status: "Perhatian",
+      expiry: "2027-12-01"
+    },
+
+    {
+      id: createId(),
+      type: "chemical",
+      name: "Natrium Hidroksida",
+      formula: "NaOH",
+      category: "Alkali",
+      icon: "🧪",
+      quantity: 1,
+      location: "Kabinet Kimia B",
+      status: "Selamat",
+      expiry: "2028-06-01"
+    },
+
+    {
+      id: createId(),
+      type: "chemical",
+      name: "Etanol",
+      formula: "C₂H₅OH",
+      category: "Pelarut",
+      icon: "🧪",
+      quantity: 1,
+      location: "Kabinet C",
+      status: "Selamat",
+      expiry: "2027-08-01"
+    }
+
+  ];
 
 }
 
 
-/*
-   Pastikan data lama masih boleh digunakan.
-*/
-
-inventory = inventory.map(item => {
-
-  return {
-
-    id:
-      item.id ||
-      ("item_" + Date.now() + Math.random()),
-
-    catalogId:
-      item.catalogId || "",
-
-    type:
-      item.type || "equipment",
-
-    name:
-      item.name || "Item",
-
-    formula:
-      item.formula || "",
-
-    category:
-      item.category || "Lain-lain",
-
-    icon:
-      item.icon ||
-      (item.type === "chemical" ? "🧪" : "🔬"),
-
-    warning:
-      item.warning || "",
-
-    quantity:
-      Number.isFinite(Number(item.quantity))
-        ? Number(item.quantity)
-        : 1,
-
-    unit:
-      item.unit ||
-      (item.type === "chemical"
-        ? "Botol"
-        : "Unit"),
-
-    location:
-      item.location || "",
-
-    status:
-      item.status || "baik"
-
-  };
-
-});
-
-
-let currentFilter = "all";
-
-
-/* =========================================
+/* =====================================================
    STORAGE
-========================================= */
+===================================================== */
 
 function saveInventory() {
 
   localStorage.setItem(
-    "labsains_inventory",
+    "labsains_pro_inventory",
     JSON.stringify(inventory)
   );
 
 }
 
 
-/* =========================================
-   NAVIGATION
-========================================= */
+/* =====================================================
+   ID
+===================================================== */
 
-function openPage(pageId) {
+function createId() {
+
+  return (
+    Date.now().toString(36) +
+    Math.random()
+      .toString(36)
+      .substring(2, 8)
+  );
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function openPage(
+  pageId,
+  button = null
+) {
 
   document
     .querySelectorAll(".page")
@@ -425,56 +455,121 @@ function openPage(pageId) {
   }
 
 
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  if (button) {
+
+    button.classList.add("active");
+
+  }
+
+
+  if (pageId === "homePage") {
+
+    document
+      .querySelector(".nav-btn")
+      ?.classList.add("active");
+
+  }
+
+
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 
 
-  renderInventory();
-  renderChemicalCatalog();
+  renderAll();
+
+}
+
+
+/* =====================================================
+   RENDER SEMUA
+===================================================== */
+
+function renderAll() {
+
   updateDashboard();
 
-}
+  renderEquipment();
 
-
-/* =========================================
-   ADD MENU
-========================================= */
-
-function openAddMenu() {
-
-  document
-    .getElementById("addMenu")
-    .classList.remove("hidden");
+  renderChemicals();
 
 }
 
 
-function closeAddMenu() {
+/* =====================================================
+   DASHBOARD
+===================================================== */
 
-  document
-    .getElementById("addMenu")
-    .classList.add("hidden");
+function updateDashboard() {
+
+  const equipment =
+    inventory.filter(
+      item =>
+        item.type === "equipment"
+    ).length;
+
+
+  const chemicals =
+    inventory.filter(
+      item =>
+        item.type === "chemical"
+    ).length;
+
+
+  const warnings =
+    inventory.filter(
+      item =>
+        (
+          item.status === "Perhatian" ||
+          item.status === "Rosak" ||
+          item.status === "Hilang"
+        )
+    ).length;
+
+
+  document.getElementById(
+    "equipmentCount"
+  ).textContent =
+    equipment;
+
+
+  document.getElementById(
+    "chemicalCount"
+  ).textContent =
+    chemicals;
+
+
+  document.getElementById(
+    "warningCount"
+  ).textContent =
+    warnings;
 
 }
 
 
-/* =========================================
+/* =====================================================
    CHEMICAL MODAL
-========================================= */
+===================================================== */
 
 function openChemicalModal() {
 
   closeAddMenu();
 
-  closeEquipmentModal();
-
-  closeCustomEquipmentForm();
-
   document
     .getElementById("chemicalModal")
     .classList.remove("hidden");
+
+  hideChemicalForm();
 
   renderChemicalOptions();
 
@@ -490,9 +585,23 @@ function closeChemicalModal() {
 }
 
 
-/* =========================================
-   CHEMICAL OPTIONS
-========================================= */
+function showChemicalForm() {
+
+  document
+    .getElementById("chemicalForm")
+    .classList.remove("hidden");
+
+}
+
+
+function hideChemicalForm() {
+
+  document
+    .getElementById("chemicalForm")
+    .classList.add("hidden");
+
+}
+
 
 function renderChemicalOptions() {
 
@@ -501,79 +610,75 @@ function renderChemicalOptions() {
       "chemicalOptions"
     );
 
+
   if (!container) return;
+
 
   container.innerHTML = "";
 
 
-  chemicalCatalog.forEach(item => {
+  chemicalCatalog.forEach(
+    (item, index) => {
 
-    const exists =
-      inventory.some(
-        x =>
-          x.type === "chemical" &&
-          x.catalogId === item.id
-      );
-
-
-    const div =
-      document.createElement("div");
-
-    div.className = "catalog-item";
+      const exists =
+        inventory.some(
+          x =>
+            x.type === "chemical" &&
+            x.catalogName === item.name
+        );
 
 
-    div.innerHTML = `
-
-      <strong>
-        ${item.icon} ${item.name}
-      </strong>
-
-      <p>
-        Formula: ${item.formula}<br>
-        Kategori: ${item.category}
-
-        ${
-          item.warning
-            ? `<br>⚠️ ${item.warning}`
-            : ""
-        }
-
-      </p>
-
-      <button
-        class="add-btn"
-        ${exists ? "disabled" : ""}
-        onclick="addChemical('${item.id}')"
-      >
-
-        ${
-          exists
-            ? "✓ Sudah dalam inventori"
-            : "+ Tambah"
-        }
-
-      </button>
-
-    `;
+      const div =
+        document.createElement("div");
 
 
-    container.appendChild(div);
+      div.className =
+        "catalog-item";
 
-  });
+
+      div.innerHTML = `
+
+        <strong>
+          ${item.icon} ${item.name}
+        </strong>
+
+        <small>
+          ${item.formula}
+          •
+          ${item.category}
+        </small>
+
+        <button
+          class="catalog-add"
+          ${exists ? "disabled" : ""}
+          onclick="addCatalogChemical(${index})"
+        >
+          ${
+            exists
+              ? "✓ Sudah Ada"
+              : "+ Tambah"
+          }
+        </button>
+
+      `;
+
+
+      container.appendChild(div);
+
+    }
+  );
 
 }
 
 
-/* =========================================
-   ADD CHEMICAL
-========================================= */
+/* =====================================================
+   ADD CATALOG CHEMICAL
+===================================================== */
 
-function addChemical(id) {
+function addCatalogChemical(index) {
 
   const item =
-    chemicalCatalog.find(
-      x => x.id === id
-    );
+    chemicalCatalog[index];
 
 
   if (!item) return;
@@ -583,7 +688,7 @@ function addChemical(id) {
     inventory.some(
       x =>
         x.type === "chemical" &&
-        x.catalogId === id
+        x.catalogName === item.name
     );
 
 
@@ -600,15 +705,12 @@ function addChemical(id) {
 
   inventory.push({
 
-    id:
-      "chemical_" +
-      Date.now(),
+    id: createId(),
 
-    catalogId:
-      item.id,
+    type: "chemical",
 
-    type:
-      "chemical",
+    catalogName:
+      item.name,
 
     name:
       item.name,
@@ -622,34 +724,26 @@ function addChemical(id) {
     icon:
       item.icon,
 
-    warning:
-      item.warning,
-
     quantity:
       1,
 
-    unit:
-      "Botol",
-
     location:
-      "",
+      "Belum ditetapkan",
 
     status:
-      "baik"
+      item.status,
+
+    expiry:
+      ""
 
   });
 
 
   saveInventory();
 
-  updateDashboard();
-
-  renderInventory();
+  renderAll();
 
   renderChemicalOptions();
-
-  renderChemicalCatalog();
-
 
   alert(
     item.name +
@@ -659,46 +753,17 @@ function addChemical(id) {
 }
 
 
-/* =========================================
-   CUSTOM CHEMICAL FORM
-========================================= */
+/* =====================================================
+   CUSTOM CHEMICAL
+===================================================== */
 
-function openCustomChemicalForm() {
-
-  closeChemicalModal();
-
-  document
-    .getElementById("customChemicalModal")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("customChemicalName")
-    .focus();
-
-}
-
-
-function closeCustomChemicalForm() {
-
-  document
-    .getElementById("customChemicalModal")
-    .classList.add("hidden");
-
-}
-
-
-/* =========================================
-   SAVE CUSTOM CHEMICAL
-========================================= */
-
-function saveCustomChemical(event) {
-
-  event.preventDefault();
-
+function saveCustomChemical() {
 
   const name =
     document
-      .getElementById("customChemicalName")
+      .getElementById(
+        "customChemicalName"
+      )
       .value
       .trim();
 
@@ -716,62 +781,59 @@ function saveCustomChemical(event) {
 
   const formula =
     document
-      .getElementById("customChemicalFormula")
+      .getElementById(
+        "customChemicalFormula"
+      )
       .value
       .trim();
 
 
   const category =
     document
-      .getElementById("customChemicalCategory")
-      .value;
+      .getElementById(
+        "customChemicalCategory"
+      )
+      .value
+      .trim() ||
+    "Lain-lain";
 
 
   const quantity =
     Number(
       document
-        .getElementById("customChemicalQuantity")
+        .getElementById(
+          "customChemicalQuantity"
+        )
         .value
     ) || 0;
 
 
-  const unit =
-    document
-      .getElementById("customChemicalUnit")
-      .value;
-
-
   const location =
     document
-      .getElementById("customChemicalLocation")
+      .getElementById(
+        "customChemicalLocation"
+      )
       .value
-      .trim();
+      .trim() ||
+    "Belum ditetapkan";
 
 
   const status =
     document
-      .getElementById("customChemicalStatus")
+      .getElementById(
+        "customChemicalStatus"
+      )
       .value;
-
-
-  const warning =
-    document
-      .getElementById("customChemicalWarning")
-      .value
-      .trim();
 
 
   inventory.push({
 
-    id:
-      "custom_chemical_" +
-      Date.now(),
+    id: createId(),
 
-    catalogId:
-      "",
+    type: "chemical",
 
-    type:
-      "chemical",
+    catalogName:
+      name,
 
     name:
       name,
@@ -785,72 +847,74 @@ function saveCustomChemical(event) {
     icon:
       "🧪",
 
-    warning:
-      warning,
-
     quantity:
       quantity,
-
-    unit:
-      unit,
 
     location:
       location,
 
     status:
-      status
+      status,
+
+    expiry:
+      ""
 
   });
 
 
   saveInventory();
 
-  updateDashboard();
+  clearChemicalForm();
 
-  renderInventory();
+  hideChemicalForm();
 
-  renderChemicalCatalog();
-
-
-  document
-    .getElementById("chemicalForm")
-    .reset();
-
-
-  document
-    .getElementById("customChemicalQuantity")
-    .value = 1;
-
-
-  closeCustomChemicalForm();
-
+  renderAll();
 
   alert(
-    name +
-    " telah berjaya ditambah ke inventori."
+    "Bahan kimia berjaya ditambah."
   );
-
-
-  openPage("inventoryPage");
 
 }
 
 
-/* =========================================
+function clearChemicalForm() {
+
+  document.getElementById(
+    "customChemicalName"
+  ).value = "";
+
+  document.getElementById(
+    "customChemicalFormula"
+  ).value = "";
+
+  document.getElementById(
+    "customChemicalCategory"
+  ).value = "";
+
+  document.getElementById(
+    "customChemicalQuantity"
+  ).value = "";
+
+  document.getElementById(
+    "customChemicalLocation"
+  ).value = "";
+
+}
+
+
+/* =====================================================
    EQUIPMENT MODAL
-========================================= */
+===================================================== */
 
 function openEquipmentModal() {
 
   closeAddMenu();
 
-  closeChemicalModal();
-
-  closeCustomChemicalForm();
-
   document
     .getElementById("equipmentModal")
     .classList.remove("hidden");
+
+  hideEquipmentForm();
 
   renderEquipmentOptions();
 
@@ -866,9 +930,27 @@ function closeEquipmentModal() {
 }
 
 
-/* =========================================
+function showEquipmentForm() {
+
+  document
+    .getElementById("equipmentForm")
+    .classList.remove("hidden");
+
+}
+
+
+function hideEquipmentForm() {
+
+  document
+    .getElementById("equipmentForm")
+    .classList.add("hidden");
+
+}
+
+
+/* =====================================================
    EQUIPMENT OPTIONS
-========================================= */
+===================================================== */
 
 function renderEquipmentOptions() {
 
@@ -877,72 +959,73 @@ function renderEquipmentOptions() {
       "equipmentOptions"
     );
 
+
   if (!container) return;
+
 
   container.innerHTML = "";
 
 
-  equipmentCatalog.forEach(item => {
+  equipmentCatalog.forEach(
+    (item, index) => {
 
-    const exists =
-      inventory.some(
-        x =>
-          x.type === "equipment" &&
-          x.catalogId === item.id
-      );
-
-
-    const div =
-      document.createElement("div");
-
-    div.className =
-      "catalog-item";
+      const exists =
+        inventory.some(
+          x =>
+            x.type === "equipment" &&
+            x.catalogName === item.name
+        );
 
 
-    div.innerHTML = `
-
-      <strong>
-        ${item.icon} ${item.name}
-      </strong>
-
-      <p>
-        Kategori: ${item.category}
-      </p>
-
-      <button
-        class="add-btn"
-        ${exists ? "disabled" : ""}
-        onclick="addEquipment('${item.id}')"
-      >
-
-        ${
-          exists
-            ? "✓ Sudah dalam inventori"
-            : "+ Tambah"
-        }
-
-      </button>
-
-    `;
+      const div =
+        document.createElement("div");
 
 
-    container.appendChild(div);
+      div.className =
+        "catalog-item";
 
-  });
+
+      div.innerHTML = `
+
+        <strong>
+          ${item.icon} ${item.name}
+        </strong>
+
+        <small>
+          ${item.category}
+        </small>
+
+        <button
+          class="catalog-add"
+          ${exists ? "disabled" : ""}
+          onclick="addCatalogEquipment(${index})"
+        >
+          ${
+            exists
+              ? "✓ Sudah Ada"
+              : "+ Tambah"
+          }
+        </button>
+
+      `;
+
+
+      container.appendChild(div);
+
+    }
+  );
 
 }
 
 
-/* =========================================
-   ADD EQUIPMENT
-========================================= */
+/* =====================================================
+   ADD CATALOG EQUIPMENT
+===================================================== */
 
-function addEquipment(id) {
+function addCatalogEquipment(index) {
 
   const item =
-    equipmentCatalog.find(
-      x => x.id === id
-    );
+    equipmentCatalog[index];
 
 
   if (!item) return;
@@ -952,14 +1035,14 @@ function addEquipment(id) {
     inventory.some(
       x =>
         x.type === "equipment" &&
-        x.catalogId === id
+        x.catalogName === item.name
     );
 
 
   if (exists) {
 
     alert(
-      "Radas ini sudah ada dalam inventori."
+      "Peralatan ini sudah ada dalam inventori."
     );
 
     return;
@@ -969,15 +1052,13 @@ function addEquipment(id) {
 
   inventory.push({
 
-    id:
-      "equipment_" +
-      Date.now(),
-
-    catalogId:
-      item.id,
+    id: createId(),
 
     type:
       "equipment",
+
+    catalogName:
+      item.name,
 
     name:
       item.name,
@@ -991,32 +1072,26 @@ function addEquipment(id) {
     icon:
       item.icon,
 
-    warning:
-      "",
-
     quantity:
       1,
 
-    unit:
-      "Unit",
-
     location:
-      "",
+      "Belum ditetapkan",
 
     status:
-      "baik"
+      "Baik",
+
+    expiry:
+      ""
 
   });
 
 
   saveInventory();
 
-  updateDashboard();
-
-  renderInventory();
+  renderAll();
 
   renderEquipmentOptions();
-
 
   alert(
     item.name +
@@ -1026,46 +1101,17 @@ function addEquipment(id) {
 }
 
 
-/* =========================================
-   CUSTOM EQUIPMENT FORM
-========================================= */
+/* =====================================================
+   CUSTOM EQUIPMENT
+===================================================== */
 
-function openCustomEquipmentForm() {
-
-  closeEquipmentModal();
-
-  document
-    .getElementById("customEquipmentModal")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("customEquipmentName")
-    .focus();
-
-}
-
-
-function closeCustomEquipmentForm() {
-
-  document
-    .getElementById("customEquipmentModal")
-    .classList.add("hidden");
-
-}
-
-
-/* =========================================
-   SAVE CUSTOM EQUIPMENT
-========================================= */
-
-function saveCustomEquipment(event) {
-
-  event.preventDefault();
-
+function saveCustomEquipment() {
 
   const name =
     document
-      .getElementById("customEquipmentName")
+      .getElementById(
+        "customEquipmentName"
+      )
       .value
       .trim();
 
@@ -1073,7 +1119,7 @@ function saveCustomEquipment(event) {
   if (!name) {
 
     alert(
-      "Sila masukkan nama radas."
+      "Sila masukkan nama alat / radas."
     );
 
     return;
@@ -1081,63 +1127,60 @@ function saveCustomEquipment(event) {
   }
 
 
-  const code =
-    document
-      .getElementById("customEquipmentCode")
-      .value
-      .trim();
-
-
   const category =
     document
-      .getElementById("customEquipmentCategory")
-      .value;
+      .getElementById(
+        "customEquipmentCategory"
+      )
+      .value
+      .trim() ||
+    "Lain-lain";
 
 
   const quantity =
     Number(
       document
-        .getElementById("customEquipmentQuantity")
+        .getElementById(
+          "customEquipmentQuantity"
+        )
         .value
     ) || 0;
 
 
-  const unit =
-    document
-      .getElementById("customEquipmentUnit")
-      .value;
-
-
   const location =
     document
-      .getElementById("customEquipmentLocation")
+      .getElementById(
+        "customEquipmentLocation"
+      )
       .value
-      .trim();
+      .trim() ||
+    "Belum ditetapkan";
 
 
   const status =
     document
-      .getElementById("customEquipmentStatus")
+      .getElementById(
+        "customEquipmentStatus"
+      )
       .value;
 
 
   inventory.push({
 
     id:
-      "custom_equipment_" +
-      Date.now(),
-
-    catalogId:
-      "",
+      createId(),
 
     type:
       "equipment",
+
+    catalogName:
+      name,
 
     name:
       name,
 
     formula:
-      code,
+      "",
 
     category:
       category,
@@ -1145,64 +1188,69 @@ function saveCustomEquipment(event) {
     icon:
       "🔬",
 
-    warning:
-      "",
-
     quantity:
       quantity,
-
-    unit:
-      unit,
 
     location:
       location,
 
     status:
-      status
+      status,
+
+    expiry:
+      ""
 
   });
 
 
   saveInventory();
 
-  updateDashboard();
+  clearEquipmentForm();
 
-  renderInventory();
+  hideEquipmentForm();
 
-
-  document
-    .getElementById("equipmentForm")
-    .reset();
-
-
-  document
-    .getElementById("customEquipmentQuantity")
-    .value = 1;
-
-
-  closeCustomEquipmentForm();
-
+  renderAll();
 
   alert(
-    name +
-    " telah berjaya ditambah ke inventori."
+    "Peralatan berjaya ditambah."
   );
-
-
-  openPage("inventoryPage");
 
 }
 
 
-/* =========================================
-   INVENTORY DISPLAY
-========================================= */
+function clearEquipmentForm() {
 
-function renderInventory() {
+  document.getElementById(
+    "customEquipmentName"
+  ).value = "";
+
+  document.getElementById(
+    "customEquipmentCategory"
+  ).value = "";
+
+  document.getElementById(
+    "customEquipmentQuantity"
+  ).value = "";
+
+  document.getElementById(
+    "customEquipmentLocation"
+  ).value = "";
+
+}
+
+
+/* =====================================================
+   EQUIPMENT DISPLAY
+===================================================== */
+
+let equipmentFilter = "all";
+
+
+function renderEquipment() {
 
   const container =
     document.getElementById(
-      "inventoryList"
+      "equipmentList"
     );
 
 
@@ -1211,67 +1259,68 @@ function renderInventory() {
 
   const search =
     (
-      document
-        .getElementById("searchInput")
-        ?.value || ""
+      document.getElementById(
+        "equipmentSearch"
+      )?.value || ""
     )
-    .toLowerCase()
-    .trim();
+      .toLowerCase();
 
 
   const filtered =
     inventory.filter(item => {
 
-      const text = (
+      if (
+        item.type !==
+        "equipment"
+      ) {
 
-        item.name +
-        " " +
-        item.category +
-        " " +
-        item.formula +
-        " " +
-        item.location +
-        " " +
-        item.status
+        return false;
 
-      ).toLowerCase();
+      }
 
 
-      const matchesSearch =
+      const text =
+        (
+          item.name +
+          " " +
+          item.category +
+          " " +
+          item.location
+        )
+          .toLowerCase();
+
+
+      const searchMatch =
         text.includes(search);
 
 
-      const matchesFilter =
-        currentFilter === "all" ||
-        item.type === currentFilter;
+      const filterMatch =
+        equipmentFilter === "all" ||
+        item.status ===
+        equipmentFilter;
 
 
       return (
-        matchesSearch &&
-        matchesFilter
+        searchMatch &&
+        filterMatch
       );
 
     });
 
 
-  if (filtered.length === 0) {
+  if (
+    filtered.length === 0
+  ) {
 
     container.innerHTML = `
 
       <div class="empty">
 
-        <div style="font-size:45px">
-          📦
-        </div>
+        🔬
 
-        <h3>
-          Inventori kosong
-        </h3>
+        <br><br>
 
-        <p style="margin-top:8px">
-          Tekan butang + Tambah untuk
-          memasukkan bahan kimia atau radas.
-        </p>
+        Tiada peralatan ditemui.
 
       </div>
 
@@ -1288,103 +1337,55 @@ function renderInventory() {
   filtered.forEach(item => {
 
     const div =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     div.className =
-      "inventory-item";
-
-
-    const statusText =
-      getStatusText(item.status);
-
-
-    const statusClass =
-      "status-" +
-      item.status;
+      "record";
 
 
     div.innerHTML = `
 
-      <div class="item-icon">
+      <div class="record-icon">
         ${item.icon}
       </div>
 
-
-      <div class="item-info">
+      <div class="record-info">
 
         <strong>
-          ${escapeHTML(item.name)}
+          ${escapeHtml(item.name)}
         </strong>
 
-
         <small>
-
-          ${
-            item.formula
-              ? escapeHTML(item.formula) + " • "
-              : ""
-          }
-
-          ${escapeHTML(item.category)}
-
+          ${escapeHtml(item.category)}
+          •
+          ${item.quantity} unit
         </small>
 
+        <small>
+          📍 ${escapeHtml(item.location)}
+        </small>
 
-        <div class="item-meta">
-
-          🔢
-          ${item.quantity}
-          ${escapeHTML(item.unit)}
-
-          ${
-            item.location
-              ? `
-                <br>
-                📍 ${escapeHTML(item.location)}
-              `
-              : ""
-          }
-
-        </div>
-
-
-        <span
-          class="status-tag ${statusClass}"
-        >
-          ${statusText}
+        <span class="${statusClass(item.status)}">
+          ${item.status}
         </span>
-
-
-        ${
-          item.warning
-            ? `
-              <div>
-                <span class="warning-tag">
-                  ⚠️ ${escapeHTML(item.warning)}
-                </span>
-              </div>
-            `
-            : ""
-        }
 
       </div>
 
-
-      <div class="item-actions">
+      <div class="record-actions">
 
         <button
           class="edit-btn"
-          onclick="openEditModal('${item.id}')"
-          title="Edit"
+          onclick="editItem('${item.id}')"
         >
           ✏️
         </button>
 
-
         <button
           class="delete-btn"
           onclick="deleteItem('${item.id}')"
-          title="Padam"
         >
           🗑️
         </button>
@@ -1401,40 +1402,293 @@ function renderInventory() {
 }
 
 
-/* =========================================
-   STATUS TEXT
-========================================= */
+/* =====================================================
+   CHEMICAL DISPLAY
+===================================================== */
 
-function getStatusText(status) {
-
-  const statuses = {
-
-    "baik":
-      "✓ Baik",
-
-    "rosak":
-      "⚠ Rosak",
-
-    "hilang":
-      "✕ Hilang",
-
-    "stok-rendah":
-      "⚠ Stok Rendah"
-
-  };
+let chemicalFilter = "all";
 
 
-  return statuses[status] ||
-    "✓ Baik";
+function renderChemicals() {
+
+  const container =
+    document.getElementById(
+      "chemicalList"
+    );
+
+
+  if (!container) return;
+
+
+  const search =
+    (
+      document.getElementById(
+        "chemicalSearch"
+      )?.value || ""
+    )
+      .toLowerCase();
+
+
+  const filtered =
+    inventory.filter(item => {
+
+      if (
+        item.type !==
+        "chemical"
+      ) {
+
+        return false;
+
+      }
+
+
+      const text =
+        (
+          item.name +
+          " " +
+          item.formula +
+          " " +
+          item.category +
+          " " +
+          item.location
+        )
+          .toLowerCase();
+
+
+      const searchMatch =
+        text.includes(search);
+
+
+      let filterMatch =
+        true;
+
+
+      if (
+        chemicalFilter ===
+        "Selamat"
+      ) {
+
+        filterMatch =
+          item.status ===
+          "Selamat";
+
+      }
+
+
+      if (
+        chemicalFilter ===
+        "Perhatian"
+      ) {
+
+        filterMatch =
+          item.status ===
+          "Perhatian";
+
+      }
+
+
+      if (
+        chemicalFilter ===
+        "Hampir Luput"
+      ) {
+
+        filterMatch =
+          isExpiringSoon(
+            item.expiry
+          );
+
+      }
+
+
+      return (
+        searchMatch &&
+        filterMatch
+      );
+
+    });
+
+
+  if (
+    filtered.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        🧪
+
+        <br><br>
+
+        Tiada bahan kimia ditemui.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  filtered.forEach(item => {
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+
+    div.className =
+      "record";
+
+
+    const expiryText =
+      item.expiry
+        ? " • Luput: " +
+          item.expiry
+        : "";
+
+
+    div.innerHTML = `
+
+      <div class="record-icon">
+        ${item.icon}
+      </div>
+
+      <div class="record-info">
+
+        <strong>
+          ${escapeHtml(item.name)}
+        </strong>
+
+        <small>
+          ${escapeHtml(item.formula || "-")}
+          •
+          ${escapeHtml(item.category)}
+        </small>
+
+        <small>
+          ${item.quantity} unit
+          •
+          📍 ${escapeHtml(item.location)}
+        </small>
+
+        <small>
+          ${expiryText}
+        </small>
+
+        <span class="${statusClass(item.status)}">
+          ${item.status}
+        </span>
+
+      </div>
+
+      <div class="record-actions">
+
+        <button
+          class="edit-btn"
+          onclick="editItem('${item.id}')"
+        >
+          ✏️
+        </button>
+
+        <button
+          class="delete-btn"
+          onclick="deleteItem('${item.id}')"
+        >
+          🗑️
+        </button>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+  });
 
 }
 
 
-/* =========================================
-   EDIT
-========================================= */
+/* =====================================================
+   FILTER
+===================================================== */
 
-function openEditModal(id) {
+function setEquipmentFilter(
+  value,
+  button
+) {
+
+  equipmentFilter =
+    value;
+
+
+  document
+    .querySelectorAll(
+      "#equipmentPage .filter"
+    )
+    .forEach(
+      btn =>
+        btn.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  renderEquipment();
+
+}
+
+
+function setChemicalFilter(
+  value,
+  button
+) {
+
+  chemicalFilter =
+    value;
+
+
+  document
+    .querySelectorAll(
+      "#chemicalPage .filter"
+    )
+    .forEach(
+      btn =>
+        btn.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  renderChemicals();
+
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+let editingId = null;
+
+
+function editItem(id) {
 
   const item =
     inventory.find(
@@ -1445,173 +1699,190 @@ function openEditModal(id) {
   if (!item) return;
 
 
-  document
-    .getElementById("editId")
-    .value = item.id;
+  editingId =
+    id;
+
+
+  document.getElementById(
+    "editName"
+  ).value =
+    item.name || "";
+
+
+  document.getElementById(
+    "editFormula"
+  ).value =
+    item.formula || "";
+
+
+  document.getElementById(
+    "editCategory"
+  ).value =
+    item.category || "";
+
+
+  document.getElementById(
+    "editQuantity"
+  ).value =
+    item.quantity || 0;
+
+
+  document.getElementById(
+    "editLocation"
+  ).value =
+    item.location || "";
+
+
+  document.getElementById(
+    "editStatus"
+  ).value =
+    item.status || "Baik";
+
+
+  document.getElementById(
+    "editExpiry"
+  ).value =
+    item.expiry || "";
 
 
   document
-    .getElementById("editName")
-    .value = item.name;
-
-
-  document
-    .getElementById("editFormula")
-    .value = item.formula || "";
-
-
-  document
-    .getElementById("editCategory")
-    .value = item.category || "";
-
-
-  document
-    .getElementById("editQuantity")
-    .value = item.quantity;
-
-
-  document
-    .getElementById("editUnit")
-    .value = item.unit;
-
-
-  document
-    .getElementById("editLocation")
-    .value = item.location;
-
-
-  document
-    .getElementById("editStatus")
-    .value = item.status;
-
-
-  document
-    .getElementById("editWarning")
-    .value = item.warning || "";
-
-
-  document
-    .getElementById("editModal")
-    .classList.remove("hidden");
+    .getElementById(
+      "editModal"
+    )
+    .classList.remove(
+      "hidden"
+    );
 
 }
 
 
 function closeEditModal() {
 
+  editingId =
+    null;
+
   document
-    .getElementById("editModal")
-    .classList.add("hidden");
+    .getElementById(
+      "editModal"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 }
 
 
-/* =========================================
-   SAVE EDIT
-========================================= */
+function saveEdit() {
 
-function saveEdit(event) {
-
-  event.preventDefault();
-
-
-  const id =
-    document
-      .getElementById("editId")
-      .value;
+  if (!editingId) return;
 
 
   const item =
     inventory.find(
-      x => x.id === id
+      x =>
+        x.id ===
+        editingId
     );
 
 
   if (!item) return;
 
 
-  item.name =
+  const name =
     document
-      .getElementById("editName")
+      .getElementById(
+        "editName"
+      )
       .value
       .trim();
 
 
+  if (!name) {
+
+    alert(
+      "Nama tidak boleh kosong."
+    );
+
+    return;
+
+  }
+
+
+  item.name =
+    name;
+
+
   item.formula =
     document
-      .getElementById("editFormula")
+      .getElementById(
+        "editFormula"
+      )
       .value
       .trim();
 
 
   item.category =
     document
-      .getElementById("editCategory")
+      .getElementById(
+        "editCategory"
+      )
       .value
-      .trim();
+      .trim() ||
+    "Lain-lain";
 
 
   item.quantity =
     Number(
       document
-        .getElementById("editQuantity")
+        .getElementById(
+          "editQuantity"
+        )
         .value
     ) || 0;
 
 
-  item.unit =
-    document
-      .getElementById("editUnit")
-      .value
-      .trim();
-
-
   item.location =
     document
-      .getElementById("editLocation")
+      .getElementById(
+        "editLocation"
+      )
       .value
-      .trim();
+      .trim() ||
+    "Belum ditetapkan";
 
 
   item.status =
     document
-      .getElementById("editStatus")
+      .getElementById(
+        "editStatus"
+      )
       .value;
 
 
-  item.warning =
+  item.expiry =
     document
-      .getElementById("editWarning")
-      .value
-      .trim();
+      .getElementById(
+        "editExpiry"
+      )
+      .value;
 
 
   saveInventory();
 
-  updateDashboard();
-
-  renderInventory();
-
-  renderChemicalOptions();
-
-  renderEquipmentOptions();
-
-  renderChemicalCatalog();
-
-
   closeEditModal();
 
+  renderAll();
 
   alert(
-    "Maklumat inventori telah dikemaskini."
+    "Rekod berjaya dikemaskini."
   );
 
 }
 
 
-/* =========================================
+/* =====================================================
    DELETE
-========================================= */
+===================================================== */
 
 function deleteItem(id) {
 
@@ -1626,7 +1897,9 @@ function deleteItem(id) {
 
   const answer =
     confirm(
-      `Padam "${item.name}" daripada inventori?`
+      "Padam \"" +
+      item.name +
+      "\" daripada inventori?"
     );
 
 
@@ -1641,320 +1914,169 @@ function deleteItem(id) {
 
   saveInventory();
 
-  updateDashboard();
-
-  renderInventory();
-
-  renderChemicalOptions();
-
-  renderEquipmentOptions();
-
-  renderChemicalCatalog();
+  renderAll();
 
 }
 
 
-/* =========================================
-   FILTER
-========================================= */
+/* =====================================================
+   ADD MENU
+===================================================== */
 
-function setFilter(
-  filter,
-  button
-) {
-
-  currentFilter =
-    filter;
-
+function openAddMenu() {
 
   document
-    .querySelectorAll(".filter")
-    .forEach(btn => {
-
-      btn.classList.remove("active");
-
-    });
-
-
-  if (button) {
-
-    button.classList.add("active");
-
-  }
-
-
-  renderInventory();
+    .getElementById(
+      "addMenu"
+    )
+    .classList.remove(
+      "hidden"
+    );
 
 }
 
 
-/* =========================================
-   CHEMICAL CATALOG PAGE
-========================================= */
+function closeAddMenu() {
 
-function renderChemicalCatalog() {
-
-  const container =
-    document.getElementById(
-      "chemicalCatalog"
+  document
+    .getElementById(
+      "addMenu"
+    )
+    .classList.add(
+      "hidden"
     );
-
-
-  if (!container) return;
-
-
-  container.innerHTML = "";
-
-
-  chemicalCatalog.forEach(item => {
-
-    const exists =
-      inventory.some(
-        x =>
-          x.type === "chemical" &&
-          x.catalogId === item.id
-      );
-
-
-    const div =
-      document.createElement("div");
-
-
-    div.className =
-      "catalog-item";
-
-
-    div.innerHTML = `
-
-      <strong>
-        ${item.icon}
-        ${item.name}
-      </strong>
-
-
-      <p>
-
-        Formula:
-        ${item.formula}
-
-        <br>
-
-        Kategori:
-        ${item.category}
-
-        ${
-          item.warning
-            ? `
-              <br>
-              ⚠️ ${item.warning}
-            `
-            : ""
-        }
-
-      </p>
-
-
-      <button
-        class="add-btn"
-        ${exists ? "disabled" : ""}
-        onclick="addChemical('${item.id}')"
-      >
-
-        ${
-          exists
-            ? "✓ Dalam Inventori"
-            : "+ Tambah ke Inventori"
-        }
-
-      </button>
-
-    `;
-
-
-    container.appendChild(div);
-
-  });
-
-
-  /* Custom chemical */
-
-  const customChemicals =
-    inventory.filter(
-      item =>
-        item.type === "chemical" &&
-        !item.catalogId
-    );
-
-
-  customChemicals.forEach(item => {
-
-    const div =
-      document.createElement("div");
-
-
-    div.className =
-      "catalog-item";
-
-
-    div.innerHTML = `
-
-      <strong>
-        🧪 ${escapeHTML(item.name)}
-      </strong>
-
-      <p>
-
-        Formula:
-        ${escapeHTML(item.formula || "-")}
-
-        <br>
-
-        Kategori:
-        ${escapeHTML(item.category)}
-
-        <br>
-
-        🔢 ${item.quantity}
-        ${escapeHTML(item.unit)}
-
-      </p>
-
-
-      <button
-        class="add-btn"
-        onclick="openEditModal('${item.id}')"
-      >
-        ✏️ Edit
-      </button>
-
-    `;
-
-
-    container.appendChild(div);
-
-  });
 
 }
 
 
-/* =========================================
-   DASHBOARD
-========================================= */
+/* =====================================================
+   STATUS
+===================================================== */
 
-function updateDashboard() {
+function statusClass(
+  status
+) {
 
-  const equipment =
-    inventory.filter(
-      x => x.type === "equipment"
-    ).length;
+  if (
+    status === "Baik" ||
+    status === "Selamat"
+  ) {
 
-
-  const chemicals =
-    inventory.filter(
-      x => x.type === "chemical"
-    ).length;
-
-
-  const warnings =
-    inventory.filter(
-      x =>
-        x.status !== "baik" ||
-        Boolean(x.warning)
-    ).length;
-
-
-  const equipmentCount =
-    document.getElementById(
-      "equipmentCount"
-    );
-
-
-  const chemicalCount =
-    document.getElementById(
-      "chemicalCount"
-    );
-
-
-  const warningCount =
-    document.getElementById(
-      "warningCount"
-    );
-
-
-  if (equipmentCount) {
-
-    equipmentCount.textContent =
-      equipment;
+    return "status success";
 
   }
 
 
-  if (chemicalCount) {
+  if (
+    status === "Rosak" ||
+    status === "Perhatian"
+  ) {
 
-    chemicalCount.textContent =
-      chemicals;
+    return "status warning";
+
+  }
+
+
+  if (
+    status === "Hilang"
+  ) {
+
+    return "status danger";
 
   }
 
 
-  if (warningCount) {
-
-    warningCount.textContent =
-      warnings;
-
-  }
+  return "status neutral";
 
 }
 
 
-/* =========================================
-   INSTALL
-========================================= */
+/* =====================================================
+   EXPIRY
+===================================================== */
 
-function showInstallInfo() {
+function isExpiringSoon(
+  dateString
+) {
 
-  alert(
-    "Gunakan menu browser 'Add to Home screen' atau 'Install app' untuk memasang LABSAINS pada telefon."
+  if (!dateString) {
+
+    return false;
+
+  }
+
+
+  const expiry =
+    new Date(dateString);
+
+
+  const now =
+    new Date();
+
+
+  const difference =
+    expiry - now;
+
+
+  const days =
+    difference /
+    (
+      1000 *
+      60 *
+      60 *
+      24
+    );
+
+
+  return (
+    days >= 0 &&
+    days <= 90
   );
 
 }
 
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
+/* =====================================================
+   SECURITY / HTML
+===================================================== */
 
-function escapeHTML(value) {
+function escapeHtml(
+  text
+) {
 
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 }
 
 
-/* =========================================
-   START APP
-========================================= */
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+function showNotification(
+  message =
+    "LABSAINS PRO sedang berjalan."
+) {
+
+  alert(message);
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
-  function() {
+  () => {
 
-    saveInventory();
-
-    updateDashboard();
-
-    renderInventory();
-
-    renderChemicalOptions();
-
-    renderEquipmentOptions();
-
-    renderChemicalCatalog();
+    renderAll();
 
   }
 );
