@@ -571,7 +571,7 @@ function applySettings() {
 
 
     const labName =
-        settings.labName ||
+        settings.lab ||
         "LABSAINS";
 
     setText(
